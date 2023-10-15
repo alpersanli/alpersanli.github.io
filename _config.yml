@@ -1,12 +1,12 @@
 # Site settings
 title: Alper Şanlı 
-description: Resume Website
+description: CV Website
 baseurl: "/" # the subpath of your site, e.g. /blog
 # url: "localhost:3000" # the base hostname & protocol for your site e.g. http://willianjusten.com.br
 
 # User settings
 username: Alper Şanlı
-user_description: 01100010 01101100 01110101 01100101 00100000 01100101 01101110 01100111 01101001 01101110 01100101 01100101 01110010 
+user_description: 
 user_title: 
 email: alpersanli16@gmail.com
 github_username: alpersanli
