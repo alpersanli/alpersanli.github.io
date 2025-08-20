@@ -2,8 +2,8 @@
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
 
-  const size = 24;                 // grid kare boyutu
-  const cells = canvas.width / size; // 480/24 = 20x20
+  const size = 24;                     // kare boyutu (px)
+  const cells = canvas.width / size;   // 480/24 = 20
   let snake, dir, nextDir, food, score, best, speed, tick, paused, dead;
 
   const rndCell = () => Math.floor(Math.random() * cells);
@@ -19,6 +19,7 @@
     paused = false;
     dead = false;
     drawScore();
+    drawFrame();
   }
 
   function spawnFood() {
@@ -50,24 +51,34 @@
     ctx.fillRect(food.x * size + pad, food.y * size + pad, size - pad * 2, size - pad * 2);
   }
 
+  function drawFrame() {
+    drawGrid(); drawFood(); drawSnake();
+  }
+
   function step() {
     if (paused || dead) return;
     requestAnimationFrame(step);
 
-    // hız kontrol: belirli aralıklarla güncelle
+    // hız kontrol (FPS benzeri)
     if (++tick < Math.max(1, Math.floor(60 / speed))) return;
     tick = 0;
 
-    // yön güncelle
+    // ters yöne anında dönmeyi engelle
     if ((nextDir.x !== -dir.x) || (nextDir.y !== -dir.y)) dir = nextDir;
 
+    // yeni kafa
     const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
-    // duvar çarpışması
-    if (head.x < 0 || head.y < 0 || head.x >= cells || head.y >= cells) return gameOver();
+    // === WRAP-AROUND: duvar yerine diğer taraftan çık ===
+    if (head.x < 0) head.x = cells - 1;
+    if (head.x >= cells) head.x = 0;
+    if (head.y < 0) head.y = cells - 1;
+    if (head.y >= cells) head.y = 0;
 
-    // kendine çarpma
-    if (snake.some(s => s.x === head.x && s.y === head.y)) return gameOver();
+    // kendine çarpma → oyun biter
+    if (snake.some(s => s.x === head.x && s.y === head.y)) {
+      return gameOver();
+    }
 
     snake.unshift(head);
 
@@ -80,7 +91,7 @@
       snake.pop();
     }
 
-    drawGrid(); drawFood(); drawSnake();
+    drawFrame();
   }
 
   function drawScore() {
@@ -92,7 +103,7 @@
 
   function gameOver() {
     dead = true;
-    drawGrid(); drawFood(); drawSnake();
+    drawFrame();
     ctx.fillStyle = "rgba(0,0,0,0.55)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#e8eef6";
@@ -122,7 +133,5 @@
 
   // Başlat
   reset();
-  drawGrid(); drawFood(); drawSnake();
   requestAnimationFrame(step);
 })();
-
