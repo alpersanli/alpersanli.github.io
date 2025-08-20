@@ -1,1 +1,15 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  display: grid; place-items: center; min-height: 100dvh; background: #0b0f14; color: #e8eef6;
+}
+.wrap { width: min(96vw, 560px); text-align: center; }
+h1 { margin: 16px 0 8px; font-size: 1.25rem; font-weight: 700; letter-spacing: .3px; }
+#game { width: 100%; height: auto; background: #0f1720; border: 1px solid #223; border-radius: 12px; display: block; }
+.ui { margin-top: 10px; display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; }
+button {
+  padding: 8px 14px; border-radius: 10px; border: 1px solid #2b3a4a; background: #15202b; color:#e8eef6; cursor: pointer;
+}
+button:hover { filter: brightness(1.1); }
+.hint { opacity: .7; font-size: .9rem; margin: 6px 0 0; }
 
