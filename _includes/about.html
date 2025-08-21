@@ -1,138 +1,110 @@
 <div id="sketchbook">
-  <h1>Sketchbook</h1>
+  <h1>📓 Sketchbook</h1>
 
-  <!-- 1 -->
+  <!-- Card 1 -->
   <details class="card">
     <summary>
       <span class="ttl">🔬 MTF & PSF in Optical Systems</span>
-      <svg class="chev" width="16" height="16" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="date">Aug 2025</span>
+      <span class="chev">▼</span>
     </summary>
     <div class="content">
       <div>
-        <p>The <strong>Point Spread Function (PSF)</strong> describes how a perfect point of light is blurred by the optical system, while the <strong>Modulation Transfer Function (MTF)</strong> quantifies how contrast is preserved across spatial frequencies.</p>
-        <p>In Earth observation payloads, PSF and MTF are not just theoretical metrics—they are mission success indicators. A narrow, symmetric PSF means sharp edges, and a high MTF ensures fine details survive the optical chain. Even small misalignments can distort the PSF, pushing high-frequency MTF to collapse.</p>
-        <p>Design rules of thumb:</p>
-        <ul>
-          <li>Pixel sampling ≥ 2.5× the optical cutoff frequency to avoid aliasing.</li>
-          <li>Optical misalignments produce asymmetric PSFs and non-uniform MTF loss.</li>
-          <li>System MTF = Optics × Detector × Motion; the weakest link dominates.</li>
-        </ul>
+        <p><strong>Modulation Transfer Function (MTF)</strong> and <strong>Point Spread Function (PSF)</strong> are two pillars of modern optics. While PSF describes how a single point of light spreads through an optical system, MTF quantifies how different spatial frequencies are transmitted.</p>
+        <p>In satellite payloads, these metrics are not just theoretical—they directly define <em>ground resolution</em> and <em>image sharpness</em>. Engineers often balance between <strong>diffraction limits</strong>, <strong>alignment tolerances</strong>, and <strong>structural stability</strong> to achieve the desired performance.</p>
       </div>
     </div>
   </details>
 
-  <!-- 2 -->
+  <!-- Card 2 -->
   <details class="card">
     <summary>
       <span class="ttl">📡 RTL-SDR Experiments</span>
-      <svg class="chev" width="16" height="16" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="date">Jul 2025</span>
+      <span class="chev">▼</span>
     </summary>
     <div class="content">
       <div>
-        <p><strong>RTL-SDR</strong> is the entry ticket into the invisible world of radio waves. A $30 USB dongle can turn any laptop into a spectrum analyzer, a weather satellite receiver, or even a gateway to amateur radio astronomy.</p>
-        <p>Popular experiments include decoding NOAA weather images, tracking airplanes via ADS-B at 1090 MHz, or listening to ship AIS broadcasts. With tools like <em>SatDump</em> and <em>dump1090</em>, the entire RF spectrum becomes a playground.</p>
-        <p>Tips for better results:</p>
-        <ul>
-          <li>Use an LNA close to the antenna to reduce noise figure.</li>
-          <li>Account for Doppler shift when tracking satellites in low Earth orbit.</li>
-          <li>Archive IQ data—you can re-process it with improved algorithms later.</li>
-        </ul>
+        <p><strong>RTL-SDR</strong> dongles have opened radio-frequency exploration to anyone with a laptop. From <em>decoding weather satellites</em> to <em>tracking aircraft via ADS-B</em>, a $20 USB stick can unlock the invisible world around us.</p>
+        <p>My experiments often involve <strong>spectral analysis</strong>, <strong>antenna design tweaks</strong>, and integrating these signals into larger space mission concepts. It is one of the simplest yet most powerful tools for engineers to sharpen their RF intuition.</p>
       </div>
     </div>
   </details>
 
-  <!-- 3 -->
+  <!-- Card 3 -->
   <details class="card">
     <summary>
       <span class="ttl">🛰️ CubeSat Deployer Systems</span>
-      <svg class="chev" width="16" height="16" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="date">Jun 2025</span>
+      <span class="chev">▼</span>
     </summary>
     <div class="content">
       <div>
-        <p><strong>CubeSat deployers</strong>—from the classic P-POD to modern modular variants—are the silent gatekeepers of space missions. Their job: protect satellites during launch and release them with millimeter precision once in orbit.</p>
-        <p>Design priorities include structural stiffness, safety mechanisms, sequencing logic, and minimizing tip-off rates at release. A well-designed deployer determines whether a CubeSat begins life in a stable orbit or tumbles uncontrollably.</p>
-        <p>Key engineering considerations:</p>
-        <ul>
-          <li>Spring-loaded vs. motorized doors: trade-offs between simplicity and control.</li>
-          <li>“Door-switch” telemetry ensures positive confirmation of release.</li>
-          <li>Redundant pyro-safes and checklists guarantee reliability under launch stress.</li>
-        </ul>
+        <p>Deployers are the unsung heroes of CubeSat missions. They ensure that small satellites are released into orbit <em>safely, precisely, and reliably</em>. Standards like the <strong>PPOD</strong> have revolutionized access to space, making universities and startups part of the new space race.</p>
+        <p>Beyond the mechanics, deployers must withstand <strong>vibration loads</strong>, <strong>thermal cycling</strong>, and <strong>zero-g actuation</strong> without fail. The design philosophy is a delicate balance of <em>simplicity</em> and <em>fail-proof redundancy</em>.</p>
       </div>
     </div>
   </details>
 </div>
 
 <style>
-  #sketchbook {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 16px;
+  :root{
+    /* dark */
+    --panel:#1b2430;
+    --panel-hover:#223041;
+    --border:#2b3a4c;
+    --ink:#eef4ff;
+    --muted:#b9c7d9;
+    --accent:#4cc9f0;
   }
-  #sketchbook h1 {
-    color: #ffffff;
-    font-weight: 800;
-    margin-bottom: 18px;
-    letter-spacing: 0.5px;
+  @media (prefers-color-scheme: light){
+    :root{
+      /* light */
+      --panel:#f7fafc;
+      --panel-hover:#ffffff;
+      --border:#d0d7de;
+      --ink:#0b1220;
+      --muted:#5b6470;
+      --accent:#0ea5e9;
+    }
   }
-  .card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px;
-    margin: 14px 0;
-    overflow: hidden;
-    transition: all 0.35s ease;
+
+  #sketchbook{max-width:900px;margin:40px auto;padding:0 16px}
+  #sketchbook h1{margin:0 0 16px;color:var(--ink);font-weight:800;letter-spacing:.3px}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    margin:14px 0;
+    overflow:hidden;
+    transition:background .25s ease, box-shadow .25s ease, border-color .25s ease;
+    box-shadow:0 6px 18px rgba(0,0,0,.12);
   }
-  .card:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  .card:hover{background:var(--panel-hover); box-shadow:0 12px 28px rgba(0,0,0,.16)}
+
+  summary{
+    display:flex; align-items:center; gap:12px; list-style:none; cursor:pointer;
+    padding:18px; color:var(--ink); font-size:18px; font-weight:700;
   }
-  summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 600;
-    color: #f0f4f9;
+  summary::-webkit-details-marker{display:none}
+  .ttl{color:var(--ink)}
+  .date{margin-left:auto;color:var(--muted);font-size:.95rem;font-weight:500}
+
+  .chev{transition:transform .25s ease; opacity:1; color:var(--muted)}
+  details[open] .chev{transform:rotate(180deg); color:var(--accent)}
+
+  .content{
+    color:var(--ink);
+    padding:0 18px;
+    display:grid; grid-template-rows:0fr;
+    transition:grid-template-rows .35s ease, padding .25s ease;
   }
-  summary::-webkit-details-marker {
-    display: none;
-  }
-  .chev {
-    transition: transform 0.3s ease;
-    opacity: 0.8;
-  }
-  details[open] .chev {
-    transform: rotate(180deg);
-  }
-  .content {
-    padding: 0 18px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.45s ease, padding 0.35s ease;
-    color: #e6ecf3;
-    font-size: 16.5px;
-    line-height: 1.7;
-  }
-  details[open] .content {
-    padding: 12px 18px 18px;
-    max-height: 700px; /* adjust if longer text */
-  }
-  #sketchbook p {
-    margin: .4rem 0 .9rem;
-  }
-  #sketchbook ul {
-    margin: .3rem 0 1rem 1.2rem;
-  }
-  #sketchbook strong {
-    color: #4cc9f0;
-    font-weight: 700;
-  }
-  #sketchbook em {
-    color: #ffb703;
-    font-style: normal;
-  }
+  details[open] .content{grid-template-rows:1fr; padding:14px 18px 18px}
+  .content > *{overflow:hidden}
+
+  #sketchbook p{margin:.45rem 0 .9rem; line-height:1.8; font-size:17.25px}
+  #sketchbook ul{margin:.45rem 0 1rem 1.2rem; line-height:1.75; font-size:16.75px}
+  #sketchbook strong{font-weight:800; color:var(--accent)}
+  #sketchbook em{font-style:normal; color:var(--muted)}
 </style>
