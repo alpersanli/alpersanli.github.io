@@ -1,61 +1,61 @@
 <div id="sketchbook">
-  <h1>Sketchbook</h1>
+  <h1>📓 Sketchbook</h1>
 
-  <!-- 1) MTF & PSF -->
+  <!-- 1 -->
   <details class="card">
     <summary>
-      <span class="ttl">MTF & PSF in Optical Systems</span>
-      <span class="date">optics • notes</span>
-      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="ttl">🔬 MTF & PSF in Optical Systems</span>
+      <svg class="chev" width="16" height="16" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
     </summary>
     <div class="content">
       <div>
-        <p><strong>PSF</strong> (point spread function) bir nokta kaynağın görüntü düzlemindeki ışık dağılımıdır; <strong>MTF</strong> (modulation transfer function) ise sistemin mekânsal frekanslara karşı kontrastı ne kadar koruduğunu gösterir. Basitçe: iyi PSF ⇒ keskin kenarlar; iyi MTF ⇒ metrik olarak doğrulanmış keskinlik.</p>
-        <p>Uydu görüntüleme yüklerinde pratik kurallar: (i) <em>Sampling</em>: piksel aralığı optik kesim frekansının en az 2× (tercihen ~2.5×) örneklemelidir; (ii) <em>Alignment</em>: küçük eğim/defocus, PSF’de asimetriye ve MTF’de kuyrukların çökmesine yol açar; (iii) <em>MTF bütçesi</em>: optik + hareket bulanıklığı + dedektör MTF’leri çarpılır, zayıf halka toplamı belirler.</p>
+        <p>The <strong>Point Spread Function (PSF)</strong> describes how a perfect point of light is blurred by the optical system, while the <strong>Modulation Transfer Function (MTF)</strong> quantifies how contrast is preserved across spatial frequencies.</p>
+        <p>In Earth observation payloads, PSF and MTF are not just theoretical metrics—they are mission success indicators. A narrow, symmetric PSF means sharp edges, and a high MTF ensures fine details survive the optical chain. Even small misalignments can distort the PSF, pushing high-frequency MTF to collapse.</p>
+        <p>Design rules of thumb:</p>
         <ul>
-          <li>GSD ↓ veya açıklık ↑ → kesim frekansı ↑, yüksek frekansta kontrast korunur.</li>
-          <li>Satır taramalı sistemlerde platform titremesi, MTF’yi özellikle yatay eksende baskılar.</li>
-          <li>Nyquist’e yakın frekanslarda <em>aliasing</em> kaçınılmazsa, optik <em>apodization</em> ve hafif <em>pre-blur</em> bazen toplam hatayı azaltır.</li>
+          <li>Pixel sampling ≥ 2.5× the optical cutoff frequency to avoid aliasing.</li>
+          <li>Optical misalignments produce asymmetric PSFs and non-uniform MTF loss.</li>
+          <li>System MTF = Optics × Detector × Motion; the weakest link dominates.</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- 2) RTL-SDR -->
+  <!-- 2 -->
   <details class="card">
     <summary>
-      <span class="ttl">RTL-SDR Experiments</span>
-      <span class="date">rf • hobby</span>
-      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="ttl">📡 RTL-SDR Experiments</span>
+      <svg class="chev" width="16" height="16" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
     </summary>
     <div class="content">
       <div>
-        <p><strong>RTL-SDR</strong> ucuz bir USB TV tuner’ı ama yazılımla geniş bir spektrumu dinleyebiliyor. Basit bir zincirle (anten → LNA → RTL-SDR → yazılım) hava durumu uydularını (APT/NOAA), uçak transponderlarını (ADS-B, 1090 MHz), gemi AIS yayınlarını (162 MHz) ve hatta temel radyo astronomi deneylerini yakalayabilirsin.</p>
-        <p>Pratik notlar: çatıya konumlu basit bir V-dipol bile NOAA APT için yeterli olabilir; <em>SatDump</em> çok yönlü bir decoder; ADS-B için <em>dump1090</em> + küçük bir kollinear anten harikalar yaratır. Gürültü tabanını düşürmek için USB uzatma kablosuyla dongle’ı metal kutudan uzaklaştırmak çoğu zaman fark ettirir.</p>
+        <p><strong>RTL-SDR</strong> is the entry ticket into the invisible world of radio waves. A $30 USB dongle can turn any laptop into a spectrum analyzer, a weather satellite receiver, or even a gateway to amateur radio astronomy.</p>
+        <p>Popular experiments include decoding NOAA weather images, tracking airplanes via ADS-B at 1090 MHz, or listening to ship AIS broadcasts. With tools like <em>SatDump</em> and <em>dump1090</em>, the entire RF spectrum becomes a playground.</p>
+        <p>Tips for better results:</p>
         <ul>
-          <li>Başlangıç: <em>wideband LNA</em> + 50 Ω koaks + SatDump.</li>
-          <li>Uydu izleme: TLE ile <em>predict</em>/Gpredict; pass anında merkezi frekansı hafif kaydır (<em>doppler</em>).</li>
-          <li>Kayıt arşivi: IQ akışlarını saklarsan daha sonra farklı demodülatörlerle yeniden işleyebilirsin.</li>
+          <li>Use an LNA close to the antenna to reduce noise figure.</li>
+          <li>Account for Doppler shift when tracking satellites in low Earth orbit.</li>
+          <li>Archive IQ data—you can re-process it with improved algorithms later.</li>
         </ul>
       </div>
     </div>
   </details>
 
-  <!-- 3) CubeSat Deployer -->
+  <!-- 3 -->
   <details class="card">
     <summary>
-      <span class="ttl">CubeSat Deployer Systems</span>
-      <span class="date">cubesat • mechanisms</span>
-      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="ttl">🛰️ CubeSat Deployer Systems</span>
+      <svg class="chev" width="16" height="16" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
     </summary>
     <div class="content">
       <div>
-        <p><strong>Deployer</strong> mekanizmaları (P-POD türevleri) fırlatma arayüzü ile uyduları güvenli şekilde ayırmak için yaylı/şeritli kilitler ve sekanslanmış serbest bırakma kullanır. Kritik tasarım hedefleri: <em>tip-off</em> momentini sınırlamak, titreşim/EMC dayanımı, venting/temizlik, kapak anahtarlarıyla (<em>door-switch</em>) telemetri güvenliği ve çoklu uydu izolasyonu.</p>
-        <p>Operasyonel açıdan, yer sistemindeki <em>arming</em> prosedürlerinin yalın ve tekrar edilebilir olması; uçuşta da piro-sigortaların bağımsızlık ve hata toleransı için uygun topolojiyle (örn. <em>dual-redundant</em>) bağlanması şansını artırır. Ayırma sonrası ilk dakikadaki <em>detumbling</em> performansı görevin hayatta kalma olasılığını belirler.</p>
+        <p><strong>CubeSat deployers</strong>—from the classic P-POD to modern modular variants—are the silent gatekeepers of space missions. Their job: protect satellites during launch and release them with millimeter precision once in orbit.</p>
+        <p>Design priorities include structural stiffness, safety mechanisms, sequencing logic, and minimizing tip-off rates at release. A well-designed deployer determines whether a CubeSat begins life in a stable orbit or tumbles uncontrollably.</p>
+        <p>Key engineering considerations:</p>
         <ul>
-          <li>Yapısal: kapak rijitliği ve ray toleransları → sürtünme/çarpışma riskini düşür.</li>
-          <li>Güvenlik: piro-safe + remove-before-flight + yer prosedürü checklist.</li>
-          <li>Test: fit-check, vibe, thermal-vac ve deployment tekrarları; “first-motion” yüksek hızlı kamera ile doğrula.</li>
+          <li>Spring-loaded vs. motorized doors: trade-offs between simplicity and control.</li>
+          <li>“Door-switch” telemetry ensures positive confirmation of release.</li>
+          <li>Redundant pyro-safes and checklists guarantee reliability under launch stress.</li>
         </ul>
       </div>
     </div>
@@ -63,67 +63,76 @@
 </div>
 
 <style>
-  /* ---- daha okunaklı, yumuşak kontrast ---- */
-  :root{
-    --panel: rgba(34, 44, 58, .82);
-    --panel-hover: rgba(42, 54, 70, .95);
-    --border: #2a3a4a;
-    --ink: #f2f6fb;         /* ANA METİN DAHA AÇIK */
-    --muted: #c1cedb;       /* İkincil metin */
-    --accent: #4cc9f0;
+  #sketchbook {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 16px;
   }
-  @media (prefers-color-scheme: light){
-    :root{
-      --panel:#ffffff; --panel-hover:#ffffff; --border:#e6e8ee;
-      --ink:#0b0f14; --muted:#5b6470;
-    }
+  #sketchbook h1 {
+    color: #ffffff;
+    font-weight: 800;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
   }
-
-  #sketchbook{max-width:900px;margin:32px auto;padding:0 16px}
-  #sketchbook h1{margin:0 0 14px;color:var(--ink);font-weight:800;letter-spacing:.3px}
-
-  .card{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:14px;
-    margin:14px 0;
-    overflow:hidden;
-    transition:background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  .card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    margin: 14px 0;
+    overflow: hidden;
+    transition: all 0.35s ease;
   }
-  .card:hover{background:var(--panel-hover); box-shadow:0 10px 28px rgba(0,0,0,.18)}
-
-  summary{
-    display:flex; align-items:center; gap:12px; list-style:none; cursor:pointer;
-    padding:16px 18px; color:var(--ink); font-size:18px; font-weight:700;
+  .card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
   }
-  summary::-webkit-details-marker{display:none}
-  .date{margin-left:auto;color:var(--muted);font-size:.95rem;font-weight:500}
-  .chev{transition:transform .25s ease; opacity:.9}
-  details[open] .chev{transform:rotate(180deg)}
-
-  .content{
-    color:var(--ink);
-    padding:0 18px;
-    display:grid; grid-template-rows:0fr;
-    transition:grid-template-rows .38s ease, padding .28s ease;
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    color: #f0f4f9;
   }
-  details[open] .content{grid-template-rows:1fr; padding:14px 18px 18px}
-  .content > div{overflow:hidden}
-
-  /* OKUNAKLILIK */
-  #sketchbook p{margin:.35rem 0 .8rem; line-height:1.78; font-size:17px}
-  #sketchbook ul{margin:.35rem 0 .9rem 1.2rem; line-height:1.72; font-size:16.5px}
-  #sketchbook em{color:var(--accent); font-style:normal}
-  #sketchbook strong{font-weight:800}
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .chev {
+    transition: transform 0.3s ease;
+    opacity: 0.8;
+  }
+  details[open] .chev {
+    transform: rotate(180deg);
+  }
+  .content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease, padding 0.35s ease;
+    color: #e6ecf3;
+    font-size: 16.5px;
+    line-height: 1.7;
+  }
+  details[open] .content {
+    padding: 12px 18px 18px;
+    max-height: 700px; /* adjust if longer text */
+  }
+  #sketchbook p {
+    margin: .4rem 0 .9rem;
+  }
+  #sketchbook ul {
+    margin: .3rem 0 1rem 1.2rem;
+  }
+  #sketchbook strong {
+    color: #4cc9f0;
+    font-weight: 700;
+  }
+  #sketchbook em {
+    color: #ffb703;
+    font-style: normal;
+  }
 </style>
-
-<script>
-  // İsteğe bağlı: aynı anda sadece bir kart açık kalsın
-  document.querySelectorAll('#sketchbook details.card').forEach(d=>{
-    d.addEventListener('toggle', ()=> {
-      if(d.open){
-        document.querySelectorAll('#sketchbook details.card').forEach(o=>{ if(o!==d) o.open=false; });
-      }
-    });
-  });
-</script>
