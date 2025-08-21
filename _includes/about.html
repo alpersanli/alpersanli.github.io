@@ -5,13 +5,14 @@
   <details class="card">
     <summary>
       <span class="ttl">🔬 MTF & PSF in Optical Systems</span>
-      <span class="date">Aug 2025</span>
+      <span class="date">9-2025</span>
       <span class="chev">▼</span>
     </summary>
     <div class="content">
       <div>
-        <p><strong>Modulation Transfer Function (MTF)</strong> and <strong>Point Spread Function (PSF)</strong> are two pillars of modern optics. While PSF describes how a single point of light spreads through an optical system, MTF quantifies how different spatial frequencies are transmitted.</p>
-        <p>In satellite payloads, these metrics are not just theoretical—they directly define <em>ground resolution</em> and <em>image sharpness</em>. Engineers often balance between <strong>diffraction limits</strong>, <strong>alignment tolerances</strong>, and <strong>structural stability</strong> to achieve the desired performance.</p>
+        <p>Point Spread Function describes how a perfect point of light is distributed on the sensor; Modulation Transfer Function tells us how contrast survives across spatial frequencies. In practice, PSF is what you “see”, MTF is how you “measure”. For Earth-observation payloads, a compact, symmetric PSF and a slowly decaying MTF at high frequencies translate into crisp edges, stable georegistration, and reliable mapping of fine textures.</p>
+        <p>Design realities: pixel sampling must be set so that the optical cutoff sits well above Nyquist; otherwise aliasing contaminates small features and pushes post-processing into damage control. Small defocus or tilt elongates the PSF and collapses MTF anisotropically—often worse along the smear direction. The system MTF is the product of optics, detector, motion, and processing. Because it multiplies, the weakest stage dominates; a superb lens cannot rescue aggressive platform jitter or under-sampled detectors.</p>
+        <p>Rules of thumb I keep: aim for ≥2.5× sampling relative to the optical cutoff; budget MTF per stage early and validate with end-to-end simulations; treat micro-vibrations as first-order, not a nuisance; when aliasing is unavoidable, controlled pre-blur (apodization) can reduce artefacts more than it costs in sharpness.</p>
       </div>
     </div>
   </details>
@@ -20,13 +21,14 @@
   <details class="card">
     <summary>
       <span class="ttl">📡 RTL-SDR Experiments</span>
-      <span class="date">Jul 2025</span>
+      <span class="date">8-2025</span>
       <span class="chev">▼</span>
     </summary>
     <div class="content">
       <div>
-        <p><strong>RTL-SDR</strong> dongles have opened radio-frequency exploration to anyone with a laptop. From <em>decoding weather satellites</em> to <em>tracking aircraft via ADS-B</em>, a $20 USB stick can unlock the invisible world around us.</p>
-        <p>My experiments often involve <strong>spectral analysis</strong>, <strong>antenna design tweaks</strong>, and integrating these signals into larger space mission concepts. It is one of the simplest yet most powerful tools for engineers to sharpen their RF intuition.</p>
+        <p>RTL-SDR turns a laptop into a wideband receiver: a small USB dongle, a sensible antenna, and you can explore weather satellites, ADS-B aircraft beacons, AIS ship traffic, meteor scatter, and more. The value is not only reception; it trains intuition—what bandwidth really means, how front-end noise dominates, how filters trade selectivity for ringing, and how Doppler walks a pass across the spectrum during a low-Earth-orbit flyover.</p>
+        <p>A practical starter chain is an outdoor antenna with a low-noise amplifier close to the feed, a short low-loss coax, the dongle on a USB extension away from RF noise, and software such as SatDump or dump1090. For satellites, use TLE-based tracking to point frequency and timing, compensate Doppler during the pass, and record I/Q so you can reprocess with better algorithms later. For ADS-B, even a simple collinear or ground-plane antenna brings a surprising sky map; for APT weather images, a lightweight V-dipole on a balcony can be enough.</p>
+        <p>From there the path branches: build antennas, experiment with LNAs and filters, measure noise figure and dynamic range, or feed public exchanges. The same workflow scales up to serious ground stations—the fundamentals learned with RTL-SDR continue to apply.</p>
       </div>
     </div>
   </details>
@@ -35,13 +37,14 @@
   <details class="card">
     <summary>
       <span class="ttl">🛰️ CubeSat Deployer Systems</span>
-      <span class="date">Jun 2025</span>
+      <span class="date">7-2025</span>
       <span class="chev">▼</span>
     </summary>
     <div class="content">
       <div>
-        <p>Deployers are the unsung heroes of CubeSat missions. They ensure that small satellites are released into orbit <em>safely, precisely, and reliably</em>. Standards like the <strong>PPOD</strong> have revolutionized access to space, making universities and startups part of the new space race.</p>
-        <p>Beyond the mechanics, deployers must withstand <strong>vibration loads</strong>, <strong>thermal cycling</strong>, and <strong>zero-g actuation</strong> without fail. The design philosophy is a delicate balance of <em>simplicity</em> and <em>fail-proof redundancy</em>.</p>
+        <p>Deployers are the quiet guardians of small satellites. They protect during ascent, interface with the launcher, and release with a sequence that must be precise under vibration scars and vacuum. Classic cassette-style systems (e.g., PPOD derivatives) rely on rails, preloaded springs, and latches; newer designs add modular stacks, gentle-start doors, and telemetry to confirm every state change.</p>
+        <p>Engineering priorities: structural stiffness to keep door geometry and rail tolerance under random vibration; venting and cleanliness to avoid pressure shocks or contaminants; electrical independence so pyro-safes cannot be armed unintentionally; and door-switch or microswitch telemetry that proves “door open” before other events fire. Tip-off at release dictates early detumbling—what happens in the first minute can decide mission survival.</p>
+        <p>Test philosophy: fit checks with flight-like tolerances, repeated deployment cycles, vibration and thermal-vacuum with high-speed video to capture first motion, and procedure rehearsal for ground operations. Simplicity wins, but redundancy saves—designs that respect both tend to fly again.</p>
       </div>
     </div>
   </details>
@@ -49,23 +52,21 @@
 
 <style>
   :root{
-    /* dark */
+    /* dark theme defaults */
     --panel:#1b2430;
     --panel-hover:#223041;
     --border:#2b3a4c;
-    --ink:#eef4ff;
-    --muted:#b9c7d9;
-    --accent:#4cc9f0;
+    --ink:#eef4ff;     /* all text uses this */
+    --muted:#c6d2e1;
   }
   @media (prefers-color-scheme: light){
     :root{
-      /* light */
+      /* light theme */
       --panel:#f7fafc;
       --panel-hover:#ffffff;
       --border:#d0d7de;
       --ink:#0b1220;
-      --muted:#5b6470;
-      --accent:#0ea5e9;
+      --muted:#596273;
     }
   }
 
@@ -90,12 +91,11 @@
   summary::-webkit-details-marker{display:none}
   .ttl{color:var(--ink)}
   .date{margin-left:auto;color:var(--muted);font-size:.95rem;font-weight:500}
-
   .chev{transition:transform .25s ease; opacity:1; color:var(--muted)}
-  details[open] .chev{transform:rotate(180deg); color:var(--accent)}
+  details[open] .chev{transform:rotate(180deg)}
 
   .content{
-    color:var(--ink);
+    color:var(--ink);            /* SINGLE COLOR for all text */
     padding:0 18px;
     display:grid; grid-template-rows:0fr;
     transition:grid-template-rows .35s ease, padding .25s ease;
@@ -103,8 +103,9 @@
   details[open] .content{grid-template-rows:1fr; padding:14px 18px 18px}
   .content > *{overflow:hidden}
 
-  #sketchbook p{margin:.45rem 0 .9rem; line-height:1.8; font-size:17.25px}
-  #sketchbook ul{margin:.45rem 0 1rem 1.2rem; line-height:1.75; font-size:16.75px}
-  #sketchbook strong{font-weight:800; color:var(--accent)}
-  #sketchbook em{font-style:normal; color:var(--muted)}
+  /* Readability */
+  #sketchbook p{margin:.55rem 0 1rem; line-height:1.85; font-size:17.5px}
+  #sketchbook ul{margin:.45rem 0 1rem 1.2rem; line-height:1.78; font-size:16.9px}
+  #sketchbook strong{font-weight:700; color:inherit}
+  #sketchbook em{font-style:italic; color:inherit}
 </style>
