@@ -1,5 +1,7 @@
 <div id="sketchbook">
-  <h1>Sketchbook</h1>
+  <h1 class="sketch-title">Sketchbook</h1>
+
+
 
   <!-- Card 3 -->
   <details class="card">
@@ -98,10 +100,31 @@
   details[open] .content{grid-template-rows:1fr; padding:14px 18px 18px}
   .content > *{overflow:hidden}
 
-  #sketchbook p{
-    margin:.55rem 0 1rem;
-    line-height:1.9;
-    font-size:17.5px;
-    text-align: justify;   /* ✅ justified text */
+  #sketchbook{
+    max-width:900px;
+    margin:40px auto;
+    padding:0 16px;
+    text-align:center; /* center the heading */
+  }
+
+  .sketch-title{
+    font-size:2.4rem;
+    font-weight:900;
+    letter-spacing:1.5px;
+    color:var(--ink);
+    margin-bottom:20px;
+    position:relative;
+    display:inline-block;
+  }
+
+  .sketch-title::after{
+    content:"";
+    display:block;
+    margin:10px auto 0;
+    width:60%;
+    height:3px;
+    border-radius:2px;
+    background:linear-gradient(90deg, var(--accent), transparent);
   }
 </style>
+
