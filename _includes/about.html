@@ -1,27 +1,77 @@
 <div class="user-details">
+  <h1>📓 Sketchbook</h1>
 
+  <button class="accordion">🔬 MTF & PSF in Optical Systems</button>
+  <div class="panel">
+    <p>
+      Modulation Transfer Function (MTF) and Point Spread Function (PSF) are fundamental
+      metrics for evaluating optical performance. MTF describes how contrast is preserved 
+      across spatial frequencies, while PSF shows the distribution of light from a point 
+      source. In telescope payload design, optimizing MTF and PSF directly improves image 
+      sharpness and mission success in Earth observation.
+    </p>
+  </div>
 
- 
-<section class="updates-item">
-  <h3>Optics Playground</h3>
-  <p>Interactive mini-labs: GSD Explorer, Diffraction PSF/MTF, Zernike misalignment.</p>
-  <p><a href="/labs/optics-playground/">Open Playground →</a></p>
-</section>
+  <button class="accordion">📡 RTL-SDR Experiments</button>
+  <div class="panel">
+    <p>
+      RTL-SDR.com provides low-cost software-defined radio dongles, enabling reception 
+      of a wide frequency range. With open-source software, they can be used for 
+      weather satellite image decoding, aircraft tracking (ADS-B), and even 
+      amateur radio astronomy experiments. A great entry point for exploring 
+      the electromagnetic spectrum.
+    </p>
+  </div>
 
-<section class="updates-item">
-  <h3>Scratchpad</h3>
-  <ul>
-    {% assign sp = site.scratchpad | sort: "date" | reverse | slice: 0, 3 %}
-    {% for it in sp %}
-      <li>
-        <a href="{{ it.url | relative_url }}">{{ it.title }}</a>
-        <span style="opacity:.6"> — {{ it.date | date: "%Y-%m-%d" }}</span>
-      </li>
-    {% endfor %}
-  </ul>
-  <p><a href="{{ '/scratchpad/' | relative_url }}">See all →</a></p>
-</section>
+  <button class="accordion">🛰️ CubeSat Deployer Systems</button>
+  <div class="panel">
+    <p>
+      CubeSat deployers such as P-PODs and newer deployer mechanisms are critical 
+      for small satellite missions. They ensure safe deployment from launch vehicles 
+      while protecting payloads. Innovations include spring-loaded systems, 
+      sequenced release, and modular multi-satellite deployment. Their design 
+      directly influences mission safety and orbital insertion accuracy.
+    </p>
+  </div>
+</div>
 
+<style>
+  .accordion {
+    background-color: #161b22;
+    color: #e6edf3;
+    cursor: pointer;
+    padding: 14px;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    margin-top: 8px;
+    border-radius: 6px;
+    transition: 0.3s;
+    text-align: left;
+  }
+  .accordion:hover {
+    background-color: #1f6feb;
+    color: white;
+  }
+  .panel {
+    padding: 0 18px;
+    background-color: #0d1117;
+    display: none;
+    overflow: hidden;
+    border-left: 2px solid #00C0FF;
+    border-radius: 0 0 6px 6px;
+    margin-bottom: 10px;
+  }
+</style>
 
- 
- </div>
+<script>
+  const acc = document.getElementsByClassName("accordion");
+  for (let i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      const panel = this.nextElementSibling;
+      panel.style.display = (panel.style.display === "block") ? "none" : "block";
+    });
+  }
+</script>
