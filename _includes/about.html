@@ -1,7 +1,7 @@
 <div id="sketchbook">
   <h1>📓 Sketchbook</h1>
 
-  <!-- 1 -->
+  <!-- 1) MTF & PSF -->
   <details class="card">
     <summary>
       <span class="ttl">MTF & PSF in Optical Systems</span>
@@ -9,16 +9,19 @@
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
     </summary>
     <div class="content">
-      <p><strong>PSF</strong> a point source’s intensity spread; <strong>MTF</strong> contrast vs spatial frequency. Earth-observation payloads: better MTF ⇒ sharper edges, better mapping. Quick rules:</p>
-      <ul>
-        <li>GSD ↓ or aperture ↑ → cutoff frequency ↑</li>
-        <li>Misalignment → PSF asymmetry → MTF tails drop</li>
-        <li>Sampling: Nyquist ≥ 2× optical cutoff (practically ~2.5×)</li>
-      </ul>
+      <div>
+        <p><strong>PSF</strong> (point spread function) bir nokta kaynağın görüntü düzlemindeki ışık dağılımıdır; <strong>MTF</strong> (modulation transfer function) ise sistemin mekânsal frekanslara karşı kontrastı ne kadar koruduğunu gösterir. Basitçe: iyi PSF ⇒ keskin kenarlar; iyi MTF ⇒ metrik olarak doğrulanmış keskinlik.</p>
+        <p>Uydu görüntüleme yüklerinde pratik kurallar: (i) <em>Sampling</em>: piksel aralığı optik kesim frekansının en az 2× (tercihen ~2.5×) örneklemelidir; (ii) <em>Alignment</em>: küçük eğim/defocus, PSF’de asimetriye ve MTF’de kuyrukların çökmesine yol açar; (iii) <em>MTF bütçesi</em>: optik + hareket bulanıklığı + dedektör MTF’leri çarpılır, zayıf halka toplamı belirler.</p>
+        <ul>
+          <li>GSD ↓ veya açıklık ↑ → kesim frekansı ↑, yüksek frekansta kontrast korunur.</li>
+          <li>Satır taramalı sistemlerde platform titremesi, MTF’yi özellikle yatay eksende baskılar.</li>
+          <li>Nyquist’e yakın frekanslarda <em>aliasing</em> kaçınılmazsa, optik <em>apodization</em> ve hafif <em>pre-blur</em> bazen toplam hatayı azaltır.</li>
+        </ul>
+      </div>
     </div>
   </details>
 
-  <!-- 2 -->
+  <!-- 2) RTL-SDR -->
   <details class="card">
     <summary>
       <span class="ttl">RTL-SDR Experiments</span>
@@ -26,11 +29,19 @@
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
     </summary>
     <div class="content">
-      <p>Cheap dongle, huge playground: weather sats (APT/NOAA), ADS-B (1090 MHz), AIS (162 MHz), even simple radio astronomy. Tooling I like: <em>rtl_fm</em>, <em>dump1090</em>, <em>SatDump</em>. A good first chain: antenna → LNA → RTL-SDR → SatDump → map.</p>
+      <div>
+        <p><strong>RTL-SDR</strong> ucuz bir USB TV tuner’ı ama yazılımla geniş bir spektrumu dinleyebiliyor. Basit bir zincirle (anten → LNA → RTL-SDR → yazılım) hava durumu uydularını (APT/NOAA), uçak transponderlarını (ADS-B, 1090 MHz), gemi AIS yayınlarını (162 MHz) ve hatta temel radyo astronomi deneylerini yakalayabilirsin.</p>
+        <p>Pratik notlar: çatıya konumlu basit bir V-dipol bile NOAA APT için yeterli olabilir; <em>SatDump</em> çok yönlü bir decoder; ADS-B için <em>dump1090</em> + küçük bir kollinear anten harikalar yaratır. Gürültü tabanını düşürmek için USB uzatma kablosuyla dongle’ı metal kutudan uzaklaştırmak çoğu zaman fark ettirir.</p>
+        <ul>
+          <li>Başlangıç: <em>wideband LNA</em> + 50 Ω koaks + SatDump.</li>
+          <li>Uydu izleme: TLE ile <em>predict</em>/Gpredict; pass anında merkezi frekansı hafif kaydır (<em>doppler</em>).</li>
+          <li>Kayıt arşivi: IQ akışlarını saklarsan daha sonra farklı demodülatörlerle yeniden işleyebilirsin.</li>
+        </ul>
+      </div>
     </div>
   </details>
 
-  <!-- 3 -->
+  <!-- 3) CubeSat Deployer -->
   <details class="card">
     <summary>
       <span class="ttl">CubeSat Deployer Systems</span>
@@ -38,60 +49,76 @@
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
     </summary>
     <div class="content">
-      <p>P-POD benzeri kasetler yaylı/şeritle kilitler kullanır; arayüz &amp; sıralı salım güvenliği belirler. Tasarım ipuçları: tip-off minimizasyonu, EMC/venting, <em>door-switch</em> telemetry, çoklu-uydu izolasyon ve py-safe bağımsızlık.</p>
+      <div>
+        <p><strong>Deployer</strong> mekanizmaları (P-POD türevleri) fırlatma arayüzü ile uyduları güvenli şekilde ayırmak için yaylı/şeritli kilitler ve sekanslanmış serbest bırakma kullanır. Kritik tasarım hedefleri: <em>tip-off</em> momentini sınırlamak, titreşim/EMC dayanımı, venting/temizlik, kapak anahtarlarıyla (<em>door-switch</em>) telemetri güvenliği ve çoklu uydu izolasyonu.</p>
+        <p>Operasyonel açıdan, yer sistemindeki <em>arming</em> prosedürlerinin yalın ve tekrar edilebilir olması; uçuşta da piro-sigortaların bağımsızlık ve hata toleransı için uygun topolojiyle (örn. <em>dual-redundant</em>) bağlanması şansını artırır. Ayırma sonrası ilk dakikadaki <em>detumbling</em> performansı görevin hayatta kalma olasılığını belirler.</p>
+        <ul>
+          <li>Yapısal: kapak rijitliği ve ray toleransları → sürtünme/çarpışma riskini düşür.</li>
+          <li>Güvenlik: piro-safe + remove-before-flight + yer prosedürü checklist.</li>
+          <li>Test: fit-check, vibe, thermal-vac ve deployment tekrarları; “first-motion” yüksek hızlı kamera ile doğrula.</li>
+        </ul>
+      </div>
     </div>
   </details>
 </div>
 
 <style>
-  /* ---- scoped to #sketchbook to avoid theme conflicts ---- */
+  /* ---- daha okunaklı, yumuşak kontrast ---- */
   :root{
-    --panel: rgba(20,28,38,.7);
-    --panel-hover: rgba(26,35,47,.9);
-    --border: #1d2a36;
-    --ink: #e8eef6;
-    --muted: #9fb0c3;
+    --panel: rgba(34, 44, 58, .82);
+    --panel-hover: rgba(42, 54, 70, .95);
+    --border: #2a3a4a;
+    --ink: #f2f6fb;         /* ANA METİN DAHA AÇIK */
+    --muted: #c1cedb;       /* İkincil metin */
     --accent: #4cc9f0;
   }
   @media (prefers-color-scheme: light){
-    :root{ --panel: rgba(255,255,255,.85); --panel-hover:#fff; --border:#e6e8ee; --ink:#0b0f14; --muted:#5b6470; }
+    :root{
+      --panel:#ffffff; --panel-hover:#ffffff; --border:#e6e8ee;
+      --ink:#0b0f14; --muted:#5b6470;
+    }
   }
 
   #sketchbook{max-width:900px;margin:32px auto;padding:0 16px}
-  #sketchbook h1{margin:0 0 12px;color:var(--ink);font-weight:800;letter-spacing:.3px}
+  #sketchbook h1{margin:0 0 14px;color:var(--ink);font-weight:800;letter-spacing:.3px}
 
-  #sketchbook .card{
+  .card{
     background:var(--panel);
     border:1px solid var(--border);
     border-radius:14px;
-    margin:12px 0;
+    margin:14px 0;
     overflow:hidden;
     transition:background .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
-  #sketchbook .card:hover{background:var(--panel-hover); box-shadow:0 10px 30px rgba(0,0,0,.18)}
-  #sketchbook summary{
-    display:flex; align-items:center; gap:10px; list-style:none; cursor:pointer;
-    padding:14px 16px; color:var(--ink);
-  }
-  #sketchbook summary::-webkit-details-marker{display:none}
-  #sketchbook .ttl{font-weight:700}
-  #sketchbook .date{margin-left:auto;color:var(--muted);font-size:.9rem}
-  #sketchbook .chev{transition:transform .25s ease; opacity:.9}
-  #sketchbook details[open] .chev{transform:rotate(180deg)}
+  .card:hover{background:var(--panel-hover); box-shadow:0 10px 28px rgba(0,0,0,.18)}
 
-  #sketchbook .content{
-    padding:0 16px; color:var(--ink);
-    display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s ease, padding .25s ease;
+  summary{
+    display:flex; align-items:center; gap:12px; list-style:none; cursor:pointer;
+    padding:16px 18px; color:var(--ink); font-size:18px; font-weight:700;
   }
-  #sketchbook details[open] .content{grid-template-rows:1fr; padding:12px 16px 16px}
-  #sketchbook .content > *{overflow:hidden}
-  #sketchbook p{margin:.2rem 0 .6rem; line-height:1.65}
-  #sketchbook ul{margin:.2rem 0 .6rem 1.2rem}
-  #sketchbook em{color:var(--accent)}
+  summary::-webkit-details-marker{display:none}
+  .date{margin-left:auto;color:var(--muted);font-size:.95rem;font-weight:500}
+  .chev{transition:transform .25s ease; opacity:.9}
+  details[open] .chev{transform:rotate(180deg)}
+
+  .content{
+    color:var(--ink);
+    padding:0 18px;
+    display:grid; grid-template-rows:0fr;
+    transition:grid-template-rows .38s ease, padding .28s ease;
+  }
+  details[open] .content{grid-template-rows:1fr; padding:14px 18px 18px}
+  .content > div{overflow:hidden}
+
+  /* OKUNAKLILIK */
+  #sketchbook p{margin:.35rem 0 .8rem; line-height:1.78; font-size:17px}
+  #sketchbook ul{margin:.35rem 0 .9rem 1.2rem; line-height:1.72; font-size:16.5px}
+  #sketchbook em{color:var(--accent); font-style:normal}
+  #sketchbook strong{font-weight:800}
 </style>
 
 <script>
-  // optional: only one open at a time (remove if you want multiple)
+  // İsteğe bağlı: aynı anda sadece bir kart açık kalsın
   document.querySelectorAll('#sketchbook details.card').forEach(d=>{
     d.addEventListener('toggle', ()=> {
       if(d.open){
