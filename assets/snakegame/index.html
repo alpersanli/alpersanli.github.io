@@ -2,22 +2,33 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Snake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Snake Fullscreen</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Snake</h1>
-    <canvas id="game" width="480" height="480" aria-label="Snake Game" role="img"></canvas>
-    <div class="ui">
-      <button id="restart">Restart</button>
-      <span id="score">Score: 0</span>
-      <span id="best">Best: 0</span>
-      <p class="hint">Ok tuşları / WASD • P = durdur/devam</p>
+  <canvas id="game"></canvas>
+
+  <!-- Üst panel -->
+  <div class="ui top-ui">
+    <button id="restart" aria-label="Restart">Restart</button>
+    <span id="score">Score: 0</span>
+    <span id="best">Best: 0</span>
+    <button id="pause" aria-label="Pause/Play">P</button>
+  </div>
+
+  <!-- Alt yön tuşları (dokunmatik + fare) -->
+  <div class="ui dpad" aria-label="Yön Tuşları">
+    <div class="row">
+      <button class="btn-dir" data-dir="up" aria-label="Yukarı">▲</button>
+    </div>
+    <div class="row">
+      <button class="btn-dir" data-dir="left" aria-label="Sol">◀</button>
+      <button class="btn-dir" data-dir="down" aria-label="Aşağı">▼</button>
+      <button class="btn-dir" data-dir="right" aria-label="Sağ">▶</button>
     </div>
   </div>
+
   <script src="snake.js"></script>
 </body>
 </html>
-
