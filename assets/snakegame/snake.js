@@ -2,8 +2,10 @@
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
   const pauseBtn = document.getElementById("pause");
+  const toggleBtn = document.getElementById("toggle-controls");
+  const dpad = document.querySelector(".ui.dpad");
 
-  // Hücre boyutu (px)
+  // cell size
   const size = 24;
   let cellsX, cellsY;
   let snake, dir, nextDir, food, score, best, speed, tick, paused, dead;
@@ -69,7 +71,6 @@
     };
     const nd = map[name];
     if (!nd) return;
-    // Anında 180° dönmeyi engelle
     if (nd.x !== -dir.x || nd.y !== -dir.y) nextDir = nd;
   }
 
@@ -77,7 +78,6 @@
     if (paused || dead) return;
     requestAnimationFrame(step);
 
-    // hız kontrol
     if (++tick < Math.max(1, Math.floor(60 / speed))) return;
     tick = 0;
 
@@ -85,13 +85,13 @@
 
     const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
-    // wrap-around (duvara çarpınca diğer taraftan çık)
+    // wrap-around
     if (head.x < 0) head.x = cellsX - 1;
     if (head.x >= cellsX) head.x = 0;
     if (head.y < 0) head.y = cellsY - 1;
     if (head.y >= cellsY) head.y = 0;
 
-    // kendine çarpma → oyun biter
+    // self collision
     if (snake.some(s => s.x === head.x && s.y === head.y)) return gameOver();
 
     snake.unshift(head);
@@ -126,7 +126,7 @@
     ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
   }
 
-  // --- Klavye ---
+  // Keyboard
   const keyMap = {
     ArrowUp: { x: 0, y: -1 }, KeyW: { x: 0, y: -1 },
     ArrowDown: { x: 0, y: 1 }, KeyS: { x: 0, y: 1 },
@@ -140,7 +140,7 @@
     if (nd && (nd.x !== -dir.x || nd.y !== -dir.y)) nextDir = nd;
   });
 
-  // --- D-Pad: tık ve dokunma ---
+  // On-screen buttons
   document.querySelectorAll(".btn-dir").forEach(btn => {
     const handler = (ev) => {
       ev.preventDefault();
@@ -151,14 +151,13 @@
     btn.addEventListener("touchstart", handler, { passive: false });
   });
 
-  // --- Swipe (kaydırma) desteği ---
-  let touchStartX = 0, touchStartY = 0, touchStartT = 0;
-  const SWIPE_MIN = 24; // px
-
+  // Swipe
+  let touchStartX = 0, touchStartY = 0;
+  const SWIPE_MIN = 24;
   canvas.addEventListener("touchstart", (e) => {
     if (!e.touches || e.touches.length === 0) return;
     const t = e.touches[0];
-    touchStartX = t.clientX; touchStartY = t.clientY; touchStartT = performance.now();
+    touchStartX = t.clientX; touchStartY = t.clientY;
   }, { passive: true });
 
   canvas.addEventListener("touchend", (e) => {
@@ -167,7 +166,6 @@
     const dx = t.clientX - touchStartX;
     const dy = t.clientY - touchStartY;
     if (Math.abs(dx) < SWIPE_MIN && Math.abs(dy) < SWIPE_MIN) return;
-
     if (Math.abs(dx) > Math.abs(dy)) {
       setDirectionByName(dx > 0 ? "right" : "left");
     } else {
@@ -175,34 +173,28 @@
     }
   }, { passive: true });
 
-  // İsteğe bağlı: mouse sürükleme ile yön (PC)
-  let mouseDown = false, mx0 = 0, my0 = 0;
-  canvas.addEventListener("mousedown", (e) => { mouseDown = true; mx0 = e.clientX; my0 = e.clientY; });
-  canvas.addEventListener("mouseup", (e) => {
-    if (!mouseDown) return;
-    mouseDown = false;
-    const dx = e.clientX - mx0, dy = e.clientY - my0;
-    if (Math.abs(dx) < SWIPE_MIN && Math.abs(dy) < SWIPE_MIN) return;
-    if (Math.abs(dx) > Math.abs(dy)) {
-      setDirectionByName(dx > 0 ? "right" : "left");
-    } else {
-      setDirectionByName(dy > 0 ? "down" : "up");
-    }
-  });
-
-  // Pause/Play
+  // Pause
   function togglePause() {
     paused = !paused;
+    pauseBtn.textContent = paused ? "Play" : "Pause";
     if (!paused && !dead) requestAnimationFrame(step);
   }
   pauseBtn.addEventListener("click", (e) => { e.preventDefault(); togglePause(); });
   pauseBtn.addEventListener("touchstart", (e) => { e.preventDefault(); togglePause(); }, { passive: false });
 
+  // Toggle Controls
+  toggleBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const hidden = dpad.style.display === "none";
+    dpad.style.display = hidden ? "grid" : "none";
+    toggleBtn.textContent = hidden ? "Hide Controls" : "Show Controls";
+  });
+
   // Restart
   document.getElementById("restart").addEventListener("click", (e) => { e.preventDefault(); reset(); requestAnimationFrame(step); });
   document.getElementById("restart").addEventListener("touchstart", (e) => { e.preventDefault(); reset(); requestAnimationFrame(step); }, { passive: false });
 
-  // Başlat
+  // Start
   reset();
   requestAnimationFrame(step);
 })();
