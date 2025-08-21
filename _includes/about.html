@@ -1,17 +1,11 @@
 <div id="sketchbook">
   <h1 class="sketch-title">Sketchbook</h1>
 
-
-
-
-
-
-  
-  <!-- Card 3 -->
+  <!-- Card 1 -->
   <details class="card">
     <summary>
       <span class="ttl">🔭 MTF & PSF in Optical Systems</span>
-      <span class="date">8-2025</span>
+      <span class="date">9-2025</span>
       <span class="chev">▼</span>
     </summary>
     <div class="content">
@@ -37,11 +31,11 @@
     </div>
   </details>
 
-  <!-- Card 1 -->
+  <!-- Card 3 -->
   <details class="card">
     <summary>
       <span class="ttl">🛰️ CubeSat Deployer Systems</span>
-      <span class="date">8-2025</span>
+      <span class="date">7-2025</span>
       <span class="chev">▼</span>
     </summary>
     <div class="content">
@@ -53,16 +47,6 @@
   </details>
 </div>
 
-
-
-
-
-
-
-
-
-
-
 <style>
   :root{
     --panel:#1b2430;
@@ -70,6 +54,7 @@
     --border:#2b3a4c;
     --ink:#eef4ff;
     --muted:#c6d2e1;
+    --accent:#4cc9f0;
   }
   @media (prefers-color-scheme: light){
     :root{
@@ -78,11 +63,29 @@
       --border:#d0d7de;
       --ink:#0b1220;
       --muted:#596273;
+      --accent:#0ea5e9;
     }
   }
 
-  #sketchbook{max-width:900px;margin:40px auto;padding:0 16px}
-  #sketchbook h1{margin:0 0 16px;color:var(--ink);font-weight:800;letter-spacing:.3px}
+  #sketchbook{max-width:900px;margin:40px auto;padding:0 16px;text-align:center}
+  .sketch-title{
+    font-size:2.4rem;
+    font-weight:900;
+    letter-spacing:1.5px;
+    color:var(--ink);
+    margin-bottom:24px;
+    position:relative;
+    display:inline-block;
+  }
+  .sketch-title::after{
+    content:"";
+    display:block;
+    margin:10px auto 0;
+    width:60%;
+    height:3px;
+    border-radius:2px;
+    background:linear-gradient(90deg, var(--accent), transparent);
+  }
 
   .card{
     background:var(--panel);
@@ -92,6 +95,7 @@
     overflow:hidden;
     transition:background .25s ease, box-shadow .25s ease, border-color .25s ease;
     box-shadow:0 6px 18px rgba(0,0,0,.12);
+    text-align:left;
   }
   .card:hover{background:var(--panel-hover); box-shadow:0 12px 28px rgba(0,0,0,.16)}
 
@@ -103,7 +107,7 @@
   .ttl{color:var(--ink)}
   .date{margin-left:auto;color:var(--muted);font-size:.95rem;font-weight:500}
   .chev{transition:transform .25s ease; opacity:1; color:var(--muted)}
-  details[open] .chev{transform:rotate(180deg)}
+  details[open] .chev{transform:rotate(180deg); color:var(--accent)}
 
   .content{
     color:var(--ink);
@@ -114,31 +118,10 @@
   details[open] .content{grid-template-rows:1fr; padding:14px 18px 18px}
   .content > *{overflow:hidden}
 
-  #sketchbook{
-    max-width:900px;
-    margin:40px auto;
-    padding:0 16px;
-    text-align:center; /* center the heading */
-  }
-
-  .sketch-title{
-    font-size:2.4rem;
-    font-weight:900;
-    letter-spacing:1.5px;
-    color:var(--ink);
-    margin-bottom:20px;
-    position:relative;
-    display:inline-block;
-  }
-
-  .sketch-title::after{
-    content:"";
-    display:block;
-    margin:10px auto 0;
-    width:60%;
-    height:3px;
-    border-radius:2px;
-    background:linear-gradient(90deg, var(--accent), transparent);
+  #sketchbook p{
+    margin:.55rem 0 1rem;
+    line-height:1.9;
+    font-size:17.5px;
+    text-align:justify;   /* justified text */
   }
 </style>
-
