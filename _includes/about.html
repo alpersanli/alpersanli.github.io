@@ -1,83 +1,102 @@
-<div class="user-details">
+<div id="sketchbook">
   <h1>📓 Sketchbook</h1>
 
-  <button class="accordion">🔬 MTF & PSF in Optical Systems</button>
-  <div class="panel">
-    <p>
-      Modulation Transfer Function (MTF) and Point Spread Function (PSF) are fundamental
-      metrics for evaluating optical performance. MTF describes how contrast is preserved 
-      across spatial frequencies, while PSF shows the distribution of light from a point 
-      source. In telescope payload design, optimizing MTF and PSF directly improves image 
-      sharpness and mission success in Earth observation.
-    </p>
-  </div>
+  <!-- 1 -->
+  <details class="card">
+    <summary>
+      <span class="ttl">MTF & PSF in Optical Systems</span>
+      <span class="date">optics • notes</span>
+      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </summary>
+    <div class="content">
+      <p><strong>PSF</strong> a point source’s intensity spread; <strong>MTF</strong> contrast vs spatial frequency. Earth-observation payloads: better MTF ⇒ sharper edges, better mapping. Quick rules:</p>
+      <ul>
+        <li>GSD ↓ or aperture ↑ → cutoff frequency ↑</li>
+        <li>Misalignment → PSF asymmetry → MTF tails drop</li>
+        <li>Sampling: Nyquist ≥ 2× optical cutoff (practically ~2.5×)</li>
+      </ul>
+    </div>
+  </details>
 
-  <button class="accordion">📡 RTL-SDR Experiments</button>
-  <div class="panel">
-    <p>
-      RTL-SDR.com provides low-cost software-defined radio dongles, enabling reception 
-      of a wide frequency range. With open-source software, they can be used for 
-      weather satellite image decoding, aircraft tracking (ADS-B), and even 
-      amateur radio astronomy experiments. A great entry point for exploring 
-      the electromagnetic spectrum.
-    </p>
-  </div>
+  <!-- 2 -->
+  <details class="card">
+    <summary>
+      <span class="ttl">RTL-SDR Experiments</span>
+      <span class="date">rf • hobby</span>
+      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </summary>
+    <div class="content">
+      <p>Cheap dongle, huge playground: weather sats (APT/NOAA), ADS-B (1090 MHz), AIS (162 MHz), even simple radio astronomy. Tooling I like: <em>rtl_fm</em>, <em>dump1090</em>, <em>SatDump</em>. A good first chain: antenna → LNA → RTL-SDR → SatDump → map.</p>
+    </div>
+  </details>
 
-  <button class="accordion">🛰️ CubeSat Deployer Systems</button>
-  <div class="panel">
-    <p>
-      CubeSat deployers such as P-PODs and newer deployer mechanisms are critical 
-      for small satellite missions. They ensure safe deployment from launch vehicles 
-      while protecting payloads. Innovations include spring-loaded systems, 
-      sequenced release, and modular multi-satellite deployment. Their design 
-      directly influences mission safety and orbital insertion accuracy.
-    </p>
-  </div>
+  <!-- 3 -->
+  <details class="card">
+    <summary>
+      <span class="ttl">CubeSat Deployer Systems</span>
+      <span class="date">cubesat • mechanisms</span>
+      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </summary>
+    <div class="content">
+      <p>P-POD benzeri kasetler yaylı/şeritle kilitler kullanır; arayüz &amp; sıralı salım güvenliği belirler. Tasarım ipuçları: tip-off minimizasyonu, EMC/venting, <em>door-switch</em> telemetry, çoklu-uydu izolasyon ve py-safe bağımsızlık.</p>
+    </div>
+  </details>
 </div>
 
 <style>
-  .accordion {
-    background-color: #21262d;
-    color: #e6edf3;
-    cursor: pointer;
-    padding: 14px;
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 18px;
-    margin-top: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
-    text-align: left;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  /* ---- scoped to #sketchbook to avoid theme conflicts ---- */
+  :root{
+    --panel: rgba(20,28,38,.7);
+    --panel-hover: rgba(26,35,47,.9);
+    --border: #1d2a36;
+    --ink: #e8eef6;
+    --muted: #9fb0c3;
+    --accent: #4cc9f0;
   }
-  .accordion:hover {
-    background-color: #30363d;
-    transform: translateY(-2px);
+  @media (prefers-color-scheme: light){
+    :root{ --panel: rgba(255,255,255,.85); --panel-hover:#fff; --border:#e6e8ee; --ink:#0b0f14; --muted:#5b6470; }
   }
-  .panel {
-    padding: 0 18px;
-    background-color: #161b22;
-    max-height: 0;
-    overflow: hidden;
-    border-left: 3px solid #00C0FF;
-    border-radius: 0 0 8px 8px;
-    margin-bottom: 8px;
-    transition: max-height 0.4s ease, padding 0.3s ease;
+
+  #sketchbook{max-width:900px;margin:32px auto;padding:0 16px}
+  #sketchbook h1{margin:0 0 12px;color:var(--ink);font-weight:800;letter-spacing:.3px}
+
+  #sketchbook .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    margin:12px 0;
+    overflow:hidden;
+    transition:background .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
-  .panel.open {
-    padding: 15px 18px;
-    max-height: 500px; /* yazı uzunluğuna göre genişler */
+  #sketchbook .card:hover{background:var(--panel-hover); box-shadow:0 10px 30px rgba(0,0,0,.18)}
+  #sketchbook summary{
+    display:flex; align-items:center; gap:10px; list-style:none; cursor:pointer;
+    padding:14px 16px; color:var(--ink);
   }
+  #sketchbook summary::-webkit-details-marker{display:none}
+  #sketchbook .ttl{font-weight:700}
+  #sketchbook .date{margin-left:auto;color:var(--muted);font-size:.9rem}
+  #sketchbook .chev{transition:transform .25s ease; opacity:.9}
+  #sketchbook details[open] .chev{transform:rotate(180deg)}
+
+  #sketchbook .content{
+    padding:0 16px; color:var(--ink);
+    display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s ease, padding .25s ease;
+  }
+  #sketchbook details[open] .content{grid-template-rows:1fr; padding:12px 16px 16px}
+  #sketchbook .content > *{overflow:hidden}
+  #sketchbook p{margin:.2rem 0 .6rem; line-height:1.65}
+  #sketchbook ul{margin:.2rem 0 .6rem 1.2rem}
+  #sketchbook em{color:var(--accent)}
 </style>
 
 <script>
-  const acc = document.getElementsByClassName("accordion");
-  for (let i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      const panel = this.nextElementSibling;
-      panel.classList.toggle("open");
+  // optional: only one open at a time (remove if you want multiple)
+  document.querySelectorAll('#sketchbook details.card').forEach(d=>{
+    d.addEventListener('toggle', ()=> {
+      if(d.open){
+        document.querySelectorAll('#sketchbook details.card').forEach(o=>{ if(o!==d) o.open=false; });
+      }
     });
-  }
+  });
 </script>
