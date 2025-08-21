@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Optics Playground — Alper Şanlı</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="site-header">
+  <h1>Optics Playground</h1>
+  <p class="tagline">Interactive mini-labs for EO payloads & optical systems</p>
+  <nav class="nav">
+    <a href="#gsd">GSD Explorer</a>
+    <a href="#diffraction">Diffraction & PSF/MTF</a>
+    <a href="#misalignment">Misalignment (Zernike)</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <!-- 1) GSD EXPLORER -->
+  <section id="gsd" class="card">
+    <div class="card-head">
+      <h2>GSD Explorer</h2>
+      <p>Estimate ground sampling distance and swath from basic payload/orbit parameters.</p>
+    </div>
+    <div class="grid two">
+      <div class="panel">
+        <label>Altitude (km)
+          <input id="alt_km" type="number" value="500" min="100" max="1200" step="10">
+        </label>
+        <label>Focal length (mm)
+          <input id="f_mm" type="number" value="500" min="50" max="2000" step="10">
+        </label>
+        <label>Pixel size (µm)
+          <input id="pix_um" type="number" value="5.6" min="1" max="20" step="0.1">
+        </label>
+        <label>Sensor width (px)
+          <input id="nx" type="number" value="4096" min="256" max="20000" step="64">
+        </label>
+        <label>Sensor height (px)
+          <input id="ny" type="number" value="3072" min="256" max="20000" step="64">
+        </label>
+        <div class="row">
+          <button id="btn-gsd">Compute</button>
+          <label class="inline"><input id="auto-gsd" type="checkbox" checked> Auto-update</label>
+        </div>
+      </div>
+      <div class="panel results">
+        <div class="kv"><span>GSD (m/pixel):</span><strong id="gsd_out">–</strong></div>
+        <div class="kv"><span>Along-track swath (km):</span><strong id="swath_x">–</strong></div>
+        <div class="kv"><span>Cross-track swath (km):</span><strong id="swath_y">–</strong></div>
+        <div class="kv"><span>Horizontal FOV (deg):</span><strong id="fov_x">–</strong></div>
+        <div class="kv"><span>Vertical FOV (deg):</span><strong id="fov_y">–</strong></div>
+        <canvas id="gsdPlot" width="480" height="240" aria-label="Footprint preview"></canvas>
+      </div>
+    </div>
+    <details class="note">
+      <summary>Formulae</summary>
+      <p>GSD ≈ H × (p / f), where H is altitude (m), p is pixel size (m), f is focal length (m). FOV ≈ 2·atan( (N·p/2) / f ). Swath ≈ 2·H·tan(FOV/2).</p>
+    </details>
+  </section>
+
+  <!-- 2) DIFFRACTION & PSF/MTF -->
+  <section id="diffraction" class="card">
+    <div class="card-head">
+      <h2>Diffraction & PSF/MTF (Aperture + Spiders)</h2>
+      <p>Adjust central obscuration and spider geometry; compute PSF (|FFT{pupil}|²) and MTF (|FFT{PSF}|).</p>
+    </div>
+    <div class="grid two">
+      <div class="panel">
+        <label>Resolution (N×N)
+          <select id="N">
+            <option>128</option>
+            <option selected>256</option>
+            <option>512</option>
+          </select>
+        </label>
+        <label>Obscuration ratio ε (0–0.6)
+          <input id="eps" type="range" min="0" max="0.6" step="0.01" value="0.30">
+          <span class="val" id="eps_v">0.30</span>
+        </label>
+        <label>Spider arms (0–6)
+          <input id="arms" type="range" min="0" max="6" step="1" value="4">
+          <span class="val" id="arms_v">4</span>
+        </label>
+        <label>Spider width (as radius %)
+          <input id="wsp" type="range" min="0" max="6" step="0.2" value="1.6">
+          <span class="val" id="wsp_v">1.6%</span>
+        </label>
+        <label>Spider rotation (deg)
+          <input id="ang" type="range" min="0" max="180" step="1" value="0">
+          <span class="val" id="ang_v">0°</span>
+        </label>
+        <div class="row">
+          <button id="btn-psf">Render</button>
+          <label class="inline"><input id="auto-psf" type="checkbox" checked> Auto-update</label>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="canvas-row">
+          <figure>
+            <figcaption>PSF (log scale)</figcaption>
+            <canvas id="psf" width="256" height="256"></canvas>
+          </figure>
+          <figure>
+            <figcaption>MTF (radial)</figcaption>
+            <canvas id="mtf" width="256" height="256"></canvas>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) MISALIGNMENT VIA ZERNIKE -->
+  <section id="misalignment" class="card">
+    <div class="card-head">
+      <h2>Misalignment (Zernike phase)</h2>
+      <p>Apply low-order Zernikes (waves): tilt, defocus, astigmatism, coma. See PSF impact instantly.</p>
+    </div>
+    <div class="grid two">
+      <div class="panel">
+        <label>Resolution (N×N)
+          <select id="NZ">
+            <option>128</option>
+            <option selected>256</option>
+          </select>
+        </label>
+        <label>Obscuration ratio ε
+          <input id="epsZ" type="range" min="0" max="0.6" step="0.01" value="0.30">
+          <span class="val" id="epsZ_v">0.30</span>
+        </label>
+        <label>Tilt X (waves)
+          <input id="z_tiltx" type="range" min="-0.5" max="0.5" step="0.01" value="0.00">
+          <span class="val" id="z_tiltx_v">0.00</span>
+        </label>
+        <label>Tilt Y (waves)
+          <input id="z_tilty" type="range" min="-0.5" max="0.5" step="0.01" value="0.00">
+          <span class="val" id="z_tilty_v">0.00</span>
+        </label>
+        <label>Defocus (waves)
+          <input id="z_def" type="range" min="-0.5" max="0.5" step="0.01" value="0.10">
+          <span class="val" id="z_def_v">0.10</span>
+        </label>
+        <label>Astig 0° (waves)
+          <input id="z_ast0" type="range" min="-0.5" max="0.5" step="0.01" value="0.00">
+          <span class="val" id="z_ast0_v">0.00</span>
+        </label>
+        <label>Astig 45° (waves)
+          <input id="z_ast45" type="range" min="-0.5" max="0.5" step="0.01" value="0.00">
+          <span class="val" id="z_ast45_v">0.00</span>
+        </label>
+        <label>Coma X (waves)
+          <input id="z_comax" type="range" min="-0.5" max="0.5" step="0.01" value="0.15">
+          <span class="val" id="z_comax_v">0.15</span>
+        </label>
+        <label>Coma Y (waves)
+          <input id="z_comay" type="range" min="-0.5" max="0.5" step="0.01" value="0.00">
+          <span class="val" id="z_comay_v">0.00</span>
+        </label>
+        <div class="row">
+          <button id="btn-z">Render</button>
+          <label class="inline"><input id="auto-z" type="checkbox" checked> Auto-update</label>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="canvas-row">
+          <figure>
+            <figcaption>PSF (log scale)</figcaption>
+            <canvas id="psfZ" width="256" height="256"></canvas>
+          </figure>
+          <figure>
+            <figcaption>Wavefront (phase, ±π)</figcaption>
+            <canvas id="phaseZ" width="256" height="256"></canvas>
+          </figure>
+        </div>
+      </div>
+    </div>
+    <details class="note">
+      <summary>Notes</summary>
+      <p>We use standard low-order Zernike modes (Noll indexing): Z2/Z3 (tilts), Z4 (defocus), Z5/Z6 (astigs), Z7/Z8 (coma). Coefficients are entered in waves (λ); phase = 2π·Σ a<sub>i</sub>Z<sub>i</sub>.</p>
+    </details>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <a href="/">← Back to home</a>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
