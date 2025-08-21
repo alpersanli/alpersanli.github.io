@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -9,23 +9,24 @@
 <body>
   <canvas id="game"></canvas>
 
-  <!-- Üst panel -->
+  <!-- Top panel -->
   <div class="ui top-ui">
     <button id="restart" aria-label="Restart">Restart</button>
     <span id="score">Score: 0</span>
     <span id="best">Best: 0</span>
-    <button id="pause" aria-label="Pause/Play">P</button>
+    <button id="pause" aria-label="Pause/Play">Pause</button>
+    <button id="toggle-controls" aria-label="Toggle Controls">Hide Controls</button>
   </div>
 
-  <!-- Alt yön tuşları (dokunmatik + fare) -->
-  <div class="ui dpad" aria-label="Yön Tuşları">
+  <!-- On-screen controls -->
+  <div class="ui dpad" aria-label="Controls">
     <div class="row">
-      <button class="btn-dir" data-dir="up" aria-label="Yukarı">▲</button>
+      <button class="btn-dir" data-dir="up" aria-label="Up">▲</button>
     </div>
     <div class="row">
-      <button class="btn-dir" data-dir="left" aria-label="Sol">◀</button>
-      <button class="btn-dir" data-dir="down" aria-label="Aşağı">▼</button>
-      <button class="btn-dir" data-dir="right" aria-label="Sağ">▶</button>
+      <button class="btn-dir" data-dir="left" aria-label="Left">◀</button>
+      <button class="btn-dir" data-dir="down" aria-label="Down">▼</button>
+      <button class="btn-dir" data-dir="right" aria-label="Right">▶</button>
     </div>
   </div>
 
