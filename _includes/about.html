@@ -1,18 +1,17 @@
 <div id="sketchbook">
-  <h1>Sketchbook</h1>
+  <h1>📓 Sketchbook</h1>
 
   <!-- Card 1 -->
   <details class="card">
     <summary>
       <span class="ttl">🔬 MTF & PSF in Optical Systems</span>
-      <span class="date">9-2025</span>
+      <span class="date">8-2025</span>
       <span class="chev">▼</span>
     </summary>
     <div class="content">
       <div>
-        <p>Point Spread Function describes how a perfect point of light is distributed on the sensor; Modulation Transfer Function tells us how contrast survives across spatial frequencies. In practice, PSF is what you “see”, MTF is how you “measure”. For Earth-observation payloads, a compact, symmetric PSF and a slowly decaying MTF at high frequencies translate into crisp edges, stable georegistration, and reliable mapping of fine textures.</p>
-        <p>Design realities: pixel sampling must be set so that the optical cutoff sits well above Nyquist; otherwise aliasing contaminates small features and pushes post-processing into damage control. Small defocus or tilt elongates the PSF and collapses MTF anisotropically—often worse along the smear direction. The system MTF is the product of optics, detector, motion, and processing. Because it multiplies, the weakest stage dominates; a superb lens cannot rescue aggressive platform jitter or under-sampled detectors.</p>
-        <p>Rules of thumb I keep: aim for ≥2.5× sampling relative to the optical cutoff; budget MTF per stage early and validate with end-to-end simulations; treat micro-vibrations as first-order, not a nuisance; when aliasing is unavoidable, controlled pre-blur (apodization) can reduce artefacts more than it costs in sharpness.</p>
+        <p>The concepts of the Point Spread Function and the Modulation Transfer Function remain central to the evaluation of optical performance. The PSF characterizes the distribution of light from a single point source across the detector plane, providing a physical manifestation of the system’s resolution capability. The MTF, on the other hand, offers a frequency domain description that quantifies the system’s ability to preserve contrast across different levels of spatial detail. These two descriptions are not isolated, as the MTF is the Fourier transform of the PSF, and their combined interpretation enables a comprehensive understanding of imaging fidelity.</p>
+        <p>In practical terms, PSF and MTF are not abstract constructs but rather essential tools in the design and validation of Earth observation payloads. Misalignments, figure errors, and structural deformations alter the PSF, thereby degrading the system MTF and reducing the effective resolution. The performance of a remote sensing telescope is therefore judged not only by theoretical diffraction limits but also by the stability of these functions under operational conditions. Careful design, simulation, and calibration are required to ensure that the measured MTF remains within mission requirements throughout the satellite lifetime.</p>
       </div>
     </div>
   </details>
@@ -26,9 +25,8 @@
     </summary>
     <div class="content">
       <div>
-        <p>RTL-SDR turns a laptop into a wideband receiver: a small USB dongle, a sensible antenna, and you can explore weather satellites, ADS-B aircraft beacons, AIS ship traffic, meteor scatter, and more. The value is not only reception; it trains intuition—what bandwidth really means, how front-end noise dominates, how filters trade selectivity for ringing, and how Doppler walks a pass across the spectrum during a low-Earth-orbit flyover.</p>
-        <p>A practical starter chain is an outdoor antenna with a low-noise amplifier close to the feed, a short low-loss coax, the dongle on a USB extension away from RF noise, and software such as SatDump or dump1090. For satellites, use TLE-based tracking to point frequency and timing, compensate Doppler during the pass, and record I/Q so you can reprocess with better algorithms later. For ADS-B, even a simple collinear or ground-plane antenna brings a surprising sky map; for APT weather images, a lightweight V-dipole on a balcony can be enough.</p>
-        <p>From there the path branches: build antennas, experiment with LNAs and filters, measure noise figure and dynamic range, or feed public exchanges. The same workflow scales up to serious ground stations—the fundamentals learned with RTL-SDR continue to apply.</p>
+        <p>The introduction of low-cost software defined radios has created a unique environment for experimentation in communication and remote sensing. The RTL-SDR, although originally intended as a television tuner, has become a valuable platform for scientific exploration and engineering education. With a simple antenna and an open-source software stack, it is possible to observe aircraft transponders, receive weather satellite imagery, and monitor spectrum activity in real time. These experiments highlight the accessibility of signal processing and the importance of practical exposure to radio frequency systems.</p>
+        <p>Beyond hobbyist applications, the use of RTL-SDR in research contexts demonstrates the value of low-barrier tools for prototyping. Lessons in noise characterization, frequency stability, and antenna optimization provide insights that scale directly into the design of professional ground stations. The device’s limitations in sensitivity and dynamic range become teaching moments in understanding trade-offs that govern radio system performance. Through this lens, RTL-SDR serves not only as a tool for experimentation but also as a bridge between theory and practice in modern communication engineering.</p>
       </div>
     </div>
   </details>
@@ -37,14 +35,13 @@
   <details class="card">
     <summary>
       <span class="ttl">🛰️ CubeSat Deployer Systems</span>
-      <span class="date">7-2025</span>
+      <span class="date">8-2025</span>
       <span class="chev">▼</span>
     </summary>
     <div class="content">
       <div>
-        <p>Deployers are the quiet guardians of small satellites. They protect during ascent, interface with the launcher, and release with a sequence that must be precise under vibration scars and vacuum. Classic cassette-style systems (e.g., PPOD derivatives) rely on rails, preloaded springs, and latches; newer designs add modular stacks, gentle-start doors, and telemetry to confirm every state change.</p>
-        <p>Engineering priorities: structural stiffness to keep door geometry and rail tolerance under random vibration; venting and cleanliness to avoid pressure shocks or contaminants; electrical independence so pyro-safes cannot be armed unintentionally; and door-switch or microswitch telemetry that proves “door open” before other events fire. Tip-off at release dictates early detumbling—what happens in the first minute can decide mission survival.</p>
-        <p>Test philosophy: fit checks with flight-like tolerances, repeated deployment cycles, vibration and thermal-vacuum with high-speed video to capture first motion, and procedure rehearsal for ground operations. Simplicity wins, but redundancy saves—designs that respect both tend to fly again.</p>
+        <p>The development of standardized deployer systems has played a decisive role in the success of CubeSat missions. These mechanisms are responsible for maintaining the structural integrity of small satellites during launch and for ensuring their safe release into orbit. The simplicity of the Poly-Picosatellite Orbital Deployer established a template that has since been adapted to accommodate increasingly complex payloads and mission scenarios. By reducing integration complexity and guaranteeing compatibility with multiple launch vehicles, deployers have become a critical enabler of accessible space exploration.</p>
+        <p>Engineering challenges in deployer design extend well beyond the mechanical interface. The system must endure the severe acoustic and vibrational environment of launch while preventing inadvertent release. At the same time, it must guarantee a clean separation, minimizing tip-off rates and ensuring predictable satellite dynamics after deployment. Verification involves repeated testing under thermal vacuum and vibration conditions to replicate the operational environment. These considerations illustrate the importance of deployers not merely as containers but as sophisticated engineering systems whose reliability directly defines the success of CubeSat programs.</p>
       </div>
     </div>
   </details>
@@ -52,16 +49,14 @@
 
 <style>
   :root{
-    /* dark theme defaults */
     --panel:#1b2430;
     --panel-hover:#223041;
     --border:#2b3a4c;
-    --ink:#eef4ff;     /* all text uses this */
+    --ink:#eef4ff;
     --muted:#c6d2e1;
   }
   @media (prefers-color-scheme: light){
     :root{
-      /* light theme */
       --panel:#f7fafc;
       --panel-hover:#ffffff;
       --border:#d0d7de;
@@ -95,7 +90,7 @@
   details[open] .chev{transform:rotate(180deg)}
 
   .content{
-    color:var(--ink);            /* SINGLE COLOR for all text */
+    color:var(--ink);
     padding:0 18px;
     display:grid; grid-template-rows:0fr;
     transition:grid-template-rows .35s ease, padding .25s ease;
@@ -103,9 +98,5 @@
   details[open] .content{grid-template-rows:1fr; padding:14px 18px 18px}
   .content > *{overflow:hidden}
 
-  /* Readability */
   #sketchbook p{margin:.55rem 0 1rem; line-height:1.85; font-size:17.5px}
-  #sketchbook ul{margin:.45rem 0 1rem 1.2rem; line-height:1.78; font-size:16.9px}
-  #sketchbook strong{font-weight:700; color:inherit}
-  #sketchbook em{font-style:italic; color:inherit}
 </style>
