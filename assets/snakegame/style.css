@@ -1,45 +1,77 @@
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  display: flex;                 /* tam ortalama */
-  align-items: center;           /* dikey merkez */
-  justify-content: center;       /* yatay merkez */
-  min-height: 100vh;
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   background: #0b0f14;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: #e8eef6;
 }
 
-.wrap { width: min(96vw, 560px); text-align: center; }
-h1 { margin: 16px 0 8px; font-size: 1.25rem; font-weight: 700; letter-spacing: .3px; }
-
 #game {
-  width: 100%;
-  height: auto;
-  background: #0f1720;
-  border: 1px solid #223;
-  border-radius: 12px;
   display: block;
+  width: 100vw;
+  height: 100vh;
+  background: #0f1720;
+  touch-action: none; /* swipe algısı için varsayılan zoom/scroll’u kapat */
 }
 
-.ui {
-  margin-top: 10px;
+/* Üstte skor paneli */
+.ui.top-ui {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15,23,32,0.7);
+  padding: 6px 12px;
+  border-radius: 10px;
   display: flex;
   gap: 10px;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  z-index: 10;
 }
 
 button {
-  padding: 8px 14px;
-  border-radius: 10px;
+  padding: 6px 10px;
+  border-radius: 8px;
   border: 1px solid #2b3a4a;
   background: #15202b;
   color:#e8eef6;
   cursor: pointer;
+  font-size: 14px;
 }
 button:hover { filter: brightness(1.1); }
 
-.hint { opacity: .7; font-size: .9rem; margin: 6px 0 0; }
+/* Alt yönergeler (D-Pad) */
+.ui.dpad {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: grid;
+  gap: 8px;
+  z-index: 10;
+  user-select: none;
+}
+
+.ui.dpad .row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.btn-dir {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+  background: rgba(21,32,43,0.9);
+}
+
+@media (max-width: 420px) {
+  .btn-dir { width: 56px; height: 56px; font-size: 22px; }
+  .ui.top-ui { font-size: 14px; gap: 8px; }
+}
