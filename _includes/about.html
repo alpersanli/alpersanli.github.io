@@ -8,6 +8,19 @@
   <p><a href="/labs/optics-playground/">Open Playground →</a></p>
 </section>
 
+<section class="updates-item">
+  <h3>Scratchpad</h3>
+  <ul>
+    {% assign sp = site.scratchpad | sort: "date" | reverse | slice: 0, 3 %}
+    {% for it in sp %}
+      <li>
+        <a href="{{ it.url | relative_url }}">{{ it.title }}</a>
+        <span style="opacity:.6"> — {{ it.date | date: "%Y-%m-%d" }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+  <p><a href="{{ '/scratchpad/' | relative_url }}">See all →</a></p>
+</section>
 
 
  
