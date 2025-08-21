@@ -16,3 +16,29 @@ google-analytics:
   id: ""
 
 exclude: ['package.json', 'src' , 'node_modules']
+
+
+
+
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# BLOG (varsa dursun)
+paginate: 5
+paginate_path: "/blog/page:num"
+
+# SCRATCHPAD (casual chatty posts)
+collections:
+  scratchpad:
+    output: true
+    permalink: /scratchpad/:name/
+
+# Optional: feed for scratchpad too (tek ortak feed yeterliyse bunu çıkar)
+feed:
+  collections:
+    - posts
+    - scratchpad
+
