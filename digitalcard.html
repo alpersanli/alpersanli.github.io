@@ -2,511 +2,552 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alper Şanlı — Digital Card</title>
-  <meta name="description" content="Alper Şanlı — Digital Card" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap"
-    rel="stylesheet" />
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alper Şanlı — Digital Card</title>
+    <meta name="description" content="Alper Şanlı — Digital Card" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    :root {
-      --bg: #05111f;
-      /* deep navy */
-      --surface: #081828;
-      /* card navy */
-      --border: rgba(180, 148, 72, 0.18);
-      --border-hi: rgba(200, 169, 110, 0.35);
+        :root {
+            --bg: #05111f;
+            /* deep navy */
+            --surface: #081828;
+            /* card navy */
+            --border: rgba(180, 148, 72, 0.18);
+            --border-hi: rgba(200, 169, 110, 0.35);
 
-      /* Gold palette */
-      --gold-1: #e8c97a;
-      /* highlight gold */
-      --gold-2: #c8a350;
-      /* mid gold */
-      --gold-3: #9a7830;
-      /* shadow gold */
-      --gold-dim: rgba(200, 163, 80, 0.12);
+            /* Gold palette */
+            --gold-1: #e8c97a;
+            /* highlight gold */
+            --gold-2: #c8a350;
+            /* mid gold */
+            --gold-3: #9a7830;
+            /* shadow gold */
+            --gold-dim: rgba(200, 163, 80, 0.12);
 
-      --text-body: rgba(200, 185, 155, 0.70);
-      /* warm ivory */
-      --text-muted: rgba(180, 160, 120, 0.38);
-    }
+            --text-body: rgba(200, 185, 155, 0.70);
+            /* warm ivory */
+            --text-muted: rgba(180, 160, 120, 0.38);
+        }
 
-    /* ── Gold emboss mixin ──
+        /* ── Gold emboss mixin ──
        Layered text-shadow: bright top-left highlight + dark bottom-right shadow
        gives the classic raised letter look on a dark surface.
     */
-    .gold-emboss {
-      color: var(--gold-1);
-      text-shadow:
-        0px -1px 0px var(--gold-3),
-        0px 1px 1px rgba(255, 235, 150, 0.22),
-        1px 2px 5px rgba(0, 0, 0, 0.55),
-        -1px -1px 0px rgba(255, 248, 210, 0.12);
-    }
+        .gold-emboss {
+            color: var(--gold-1);
+            text-shadow:
+                0px -1px 0px var(--gold-3),
+                0px 1px 1px rgba(255, 235, 150, 0.22),
+                1px 2px 5px rgba(0, 0, 0, 0.55),
+                -1px -1px 0px rgba(255, 248, 210, 0.12);
+        }
 
-    .gold-emboss-sm {
-      color: var(--gold-2);
-      text-shadow:
-        0px -1px 0px #7a5c18,
-        0px 1px 1px rgba(255, 235, 150, 0.15),
-        0px 2px 4px rgba(0, 0, 0, 0.5);
-    }
+        .gold-emboss-sm {
+            color: var(--gold-2);
+            text-shadow:
+                0px -1px 0px #7a5c18,
+                0px 1px 1px rgba(255, 235, 150, 0.15),
+                0px 2px 4px rgba(0, 0, 0, 0.5);
+        }
 
-    html,
-    body {
-      min-height: 100dvh;
-      background: var(--bg);
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
+        html,
+        body {
+            min-height: 100dvh;
+            background: var(--bg);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
 
-    /* Subtle deep-sea vignette */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
-      pointer-events: none;
-      z-index: 0;
-    }
+        /* Subtle deep-sea vignette */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-    /* ── Card ── */
-    .card {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 420px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 52px 46px 44px;
-      box-shadow:
-        0 0 0 1px rgba(180, 148, 72, 0.06) inset,
-        0 32px 80px rgba(0, 0, 0, 0.65),
-        0 4px 20px rgba(0, 0, 0, 0.4);
-      transition: box-shadow 0.4s ease;
-    }
+        /* ── Card ── */
+        .card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 52px 46px 44px;
+            box-shadow:
+                0 0 0 1px rgba(180, 148, 72, 0.06) inset,
+                0 32px 80px rgba(0, 0, 0, 0.65),
+                0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: box-shadow 0.4s ease;
+        }
 
-    .card:hover {
-      box-shadow:
-        0 0 0 1px rgba(200, 163, 80, 0.14) inset,
-        0 40px 100px rgba(0, 0, 0, 0.75),
-        0 0px 40px rgba(180, 140, 50, 0.07);
-    }
+        .card:hover {
+            box-shadow:
+                0 0 0 1px rgba(200, 163, 80, 0.14) inset,
+                0 40px 100px rgba(0, 0, 0, 0.75),
+                0 0px 40px rgba(180, 140, 50, 0.07);
+        }
 
-    /* Gold top rule */
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 46px;
-      right: 46px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-2), transparent);
-      opacity: 0.7;
-    }
+        /* Gold top rule */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 46px;
+            right: 46px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-2), transparent);
+            opacity: 0.7;
+        }
 
-    /* Corner ornaments */
-    .card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 46px;
-      right: 46px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(180, 148, 72, 0.25), transparent);
-    }
+        /* Corner ornaments */
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 46px;
+            right: 46px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(180, 148, 72, 0.25), transparent);
+        }
 
-    /* ── Header ── */
-    .header {
-      margin-bottom: 34px;
-    }
+        /* ── Header ── */
+        .header {
+            margin-bottom: 34px;
+        }
 
-    .role {
-      font-size: 9.5px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+        .role {
+            font-size: 9.5px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
 
-    .name {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 30px;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      line-height: 1.1;
-      margin-bottom: 10px;
-    }
+        .name {
+            font-family: 'EB Garamond', Georgia, serif;
+            font-size: 30px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
 
-    .dept-line {
-      font-size: 11.5px;
-      color: var(--text-body);
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      line-height: 1.55;
-    }
+        .dept-line {
+            font-size: 11.5px;
+            color: var(--text-body);
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            line-height: 1.55;
+        }
 
-    .dept-line em {
-      font-style: italic;
-      color: var(--text-muted);
-      font-size: 11px;
-    }
+        .dept-line em {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 11px;
+        }
 
-    /* ── Section spacing ── */
-    .spacer {
-      margin-top: 26px;
-    }
+        /* ── Section spacing ── */
+        .spacer {
+            margin-top: 26px;
+        }
 
-    /* ── Education grid ── */
-    .edu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px 16px;
-    }
+        /* ── Education grid ── */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 16px;
+        }
 
-    .edu-cell {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-    }
+        .edu-cell {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
 
-    .edu-deg {
-      font-size: 8px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-2);
-      opacity: 0.65;
-      flex-shrink: 0;
-    }
+        .edu-deg {
+            font-size: 8px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold-2);
+            opacity: 0.65;
+            flex-shrink: 0;
+        }
 
-    .edu-prog {
-      font-size: 10px;
-      color: var(--text-muted);
-      font-weight: 300;
-      letter-spacing: 0.01em;
-    }
+        .edu-prog {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
 
-    /* ── Phone pair ── */
-    .phone-pair {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
+        /* ── Phone pair ── */
+        .phone-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
 
-    .phone-cell {
-      display: flex;
-      flex-direction: column;
-      padding: 10.5px 0;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
+        .phone-cell {
+            display: flex;
+            flex-direction: column;
+            padding: 10.5px 0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
 
-    .phone-cell+.phone-cell {
-      padding-left: 14px;
-    }
+        .phone-cell+.phone-cell {
+            padding-left: 14px;
+        }
 
-    .phone-cell:hover .contact-key {
-      color: var(--gold-2);
-    }
+        .phone-cell:hover .contact-key {
+            color: var(--gold-2);
+        }
 
-    /* ── Academic profiles grid ── */
-    .profiles-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      padding: 8px 0 2px;
-    }
+        /* ── Academic profiles grid ── */
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            padding: 8px 0 2px;
+        }
 
-    .profile-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 7px 6px;
-      border: 1px solid rgba(180, 148, 72, 0.14);
-      border-radius: 2px;
-      text-decoration: none;
-      font-size: 9.5px;
-      font-weight: 500;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      transition: all 0.2s ease;
-    }
+        .profile-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px 6px;
+            border: 1px solid rgba(180, 148, 72, 0.14);
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 9.5px;
+            font-weight: 500;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
 
-    .profile-link:hover {
-      color: var(--gold-1);
-      border-color: rgba(200, 163, 80, 0.40);
-      background: rgba(200, 163, 80, 0.06);
-    }
+        .profile-link:hover {
+            color: var(--gold-1);
+            border-color: rgba(200, 163, 80, 0.40);
+            background: rgba(200, 163, 80, 0.06);
+        }
 
-    .phone-cell:hover .contact-val {
-      color: var(--gold-1);
-      text-shadow:
-        0px -1px 0px #7a5c18,
-        0px 1px 1px rgba(255, 235, 150, 0.12),
-        0px 2px 4px rgba(0, 0, 0, 0.4);
-    }
+        .phone-cell:hover .contact-val {
+            color: var(--gold-1);
+            text-shadow:
+                0px -1px 0px #7a5c18,
+                0px 1px 1px rgba(255, 235, 150, 0.12),
+                0px 2px 4px rgba(0, 0, 0, 0.4);
+        }
 
-    /* ── Contact rows ── */
-    .contacts {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 34px;
-    }
+        /* ── Contact rows ── */
+        .contacts {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 34px;
+        }
 
-    .contact-row {
-      display: flex;
-      align-items: baseline;
-      padding: 9px 0;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
+        .contact-row {
+            display: flex;
+            align-items: baseline;
+            padding: 9px 0;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
 
-    .contact-key {
-      font-size: 9.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      min-width: 62px;
-      flex-shrink: 0;
-      transition: color 0.2s ease;
-    }
+        .contact-key {
+            font-size: 9.5px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            min-width: 62px;
+            flex-shrink: 0;
+            transition: color 0.2s ease;
+        }
 
-    .contact-val {
-      font-size: 12.5px;
-      color: var(--text-body);
-      font-weight: 300;
-      letter-spacing: 0.02em;
-      transition: all 0.2s ease;
-    }
+        .contact-val {
+            font-size: 12.5px;
+            color: var(--text-body);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            transition: all 0.2s ease;
+        }
 
-    .contact-row:hover .contact-key {
-      color: var(--gold-2);
-    }
+        .contact-row:hover .contact-key {
+            color: var(--gold-2);
+        }
 
-    .contact-row:hover .contact-val {
-      color: var(--gold-1);
-      text-shadow:
-        0px -1px 0px #7a5c18,
-        0px 1px 1px rgba(255, 235, 150, 0.12),
-        0px 2px 4px rgba(0, 0, 0, 0.4);
-    }
+        .contact-row:hover .contact-val {
+            color: var(--gold-1);
+            text-shadow:
+                0px -1px 0px #7a5c18,
+                0px 1px 1px rgba(255, 235, 150, 0.12),
+                0px 2px 4px rgba(0, 0, 0, 0.4);
+        }
 
-    /* ── Actions ── */
-    .actions {
-      display: flex;
-      gap: 10px;
-    }
+        #whatsapp-link:hover .contact-key {
+            color: #2ec866;
+        }
 
-    .btn {
-      flex: 1;
-      padding: 11px 14px;
-      font-size: 10px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: none;
-      border-radius: 2px;
-      transition: all 0.2s ease;
-    }
+        #whatsapp-link:hover .contact-val {
+            color: #a3f7bf;
+            text-shadow:
+                0 0 10px rgba(46, 200, 102, 0.4),
+                0px 1px 1px rgba(255, 235, 150, 0.12);
+        }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--gold-2), #a8872a, var(--gold-2));
-      background-size: 200% 200%;
-      color: #05111f;
-      box-shadow: 0 2px 12px rgba(180, 140, 50, 0.25), 0 0 0 1px rgba(255, 220, 100, 0.15) inset;
-      font-weight: 600;
-      text-shadow: 0 1px 0 rgba(255, 255, 200, 0.2);
-    }
+        /* ── Actions ── */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-    .btn-primary:hover {
-      background-position: right center;
-      box-shadow: 0 4px 20px rgba(200, 163, 80, 0.4), 0 0 0 1px rgba(255, 220, 100, 0.25) inset;
-      transform: translateY(-1px);
-    }
+        .action-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
 
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-muted);
-      border: 1px solid rgba(180, 148, 72, 0.20);
-    }
+        .btn {
+            flex: 1;
+            padding: 11px 14px;
+            font-size: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
 
-    .btn-secondary:hover {
-      border-color: rgba(200, 163, 80, 0.40);
-      color: var(--gold-2);
-      transform: translateY(-1px);
-    }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-2), #a8872a, var(--gold-2));
+            background-size: 200% 200%;
+            color: #05111f;
+            box-shadow: 0 2px 12px rgba(180, 140, 50, 0.25), 0 0 0 1px rgba(255, 220, 100, 0.15) inset;
+            font-weight: 600;
+            text-shadow: 0 1px 0 rgba(255, 255, 200, 0.2);
+        }
 
-    /* ── Toast ── */
-    .toast {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%) translateY(60px);
-      background: var(--surface);
-      border: 1px solid var(--border-hi);
-      border-radius: 2px;
-      padding: 10px 22px;
-      font-size: 11.5px;
-      color: var(--gold-1);
-      letter-spacing: 0.08em;
-      z-index: 100;
-      opacity: 0;
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
-      pointer-events: none;
-    }
+        .btn-primary:hover {
+            background-position: right center;
+            box-shadow: 0 4px 20px rgba(200, 163, 80, 0.4), 0 0 0 1px rgba(255, 220, 100, 0.25) inset;
+            transform: translateY(-1px);
+        }
 
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid rgba(180, 148, 72, 0.20);
+        }
 
-    @media (max-width: 480px) {
-      .card {
-        padding: 38px 28px 34px;
-      }
+        .btn-secondary:hover {
+            border-color: rgba(200, 163, 80, 0.40);
+            color: var(--gold-2);
+            transform: translateY(-1px);
+        }
 
-      .card::before,
-      .card::after {
-        left: 28px;
-        right: 28px;
-      }
+        .btn-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background: linear-gradient(135deg, #1ebea5, #075e54, #1ebea5);
+            background-size: 200% 200%;
+            color: #ffffff;
+            box-shadow: 0 2px 12px rgba(7, 94, 84, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            font-weight: 600;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        }
 
-      .name {
-        font-size: 26px;
-      }
-    }
-  </style>
+        .btn-whatsapp:hover {
+            background-position: right center;
+            box-shadow: 0 4px 20px rgba(30, 190, 165, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(60px);
+            background: var(--surface);
+            border: 1px solid var(--border-hi);
+            border-radius: 2px;
+            padding: 10px 22px;
+            font-size: 11.5px;
+            color: var(--gold-1);
+            letter-spacing: 0.08em;
+            z-index: 100;
+            opacity: 0;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 38px 28px 34px;
+            }
+
+            .card::before,
+            .card::after {
+                left: 28px;
+                right: 28px;
+            }
+
+            .name {
+                font-size: 26px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="card">
+    <div class="card">
 
-    <!-- Header -->
-    <div class="header">
-      <div class="role gold-emboss-sm">Ph.D.</div>
-      <div class="name gold-emboss">Alper Şanlı</div>
-      <div class="dept-line">
-        Assistant Professor<br>
-      </div>
+        <!-- Header -->
+        <div class="header">
+            <div class="role gold-emboss-sm">Ph.D.</div>
+            <div class="name gold-emboss">Alper Şanlı</div>
+            <div class="dept-line">
+                Assistant Professor<br>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="edu-grid">
+            <div class="edu-cell">
+                <span class="edu-prog">Aeronautical</span>
+            </div>
+            <div class="edu-cell">
+                <span class="edu-prog">Astronautical</span>
+            </div>
+            <div class="edu-cell">
+                <span class="edu-prog">Space Sciences</span>
+            </div>
+            <div class="edu-cell">
+                <span class="edu-prog">Satellite Technologies</span>
+            </div>
+            <div class="edu-cell">
+                <span class="edu-prog">Mechanical Engineering</span>
+            </div>
+            <div class="edu-cell">
+                <span class="edu-prog">Computer Programming</span>
+            </div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <!-- Contact -->
+        <div class="contacts">
+            <a href="mailto:alpersanli16@gmail.com" class="contact-row" id="email-link">
+                <span class="contact-key">Email</span>
+                <span class="contact-val">alpersanli16@gmail.com</span>
+            </a>
+            <a href="tel:+905416361616" class="contact-row" id="phone-link">
+                <span class="contact-key">Phone</span>
+                <span class="contact-val">+90 541 636 16 16</span>
+            </a>
+            <a href="https://alpersanli.github.io" target="_blank" class="contact-row" id="web-link">
+                <span class="contact-key">Web</span>
+                <span class="contact-val">alpersanli.github.io</span>
+            </a>
+            <div class="contact-row" id="radio-row">
+                <span class="contact-key">C/S</span>
+                <span class="contact-val">TA1VAM</span>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <div class="action-row">
+                <button class="btn btn-primary" id="save-btn" onclick="saveContact()">Save</button>
+                <button class="btn btn-secondary" id="share-btn" onclick="shareCard()">Share</button>
+            </div>
+            <a href="https://wa.me/905416361616" target="_blank" class="btn btn-whatsapp" id="whatsapp-btn">WhatsApp</a>
+        </div>
+
     </div>
 
-    <!-- Education -->
-    <div class="edu-grid">
-      <div class="edu-cell">
-        <span class="edu-prog">Aeronautical</span>
-      </div>
-      <div class="edu-cell">
-        <span class="edu-prog">Astronautical</span>
-      </div>
-      <div class="edu-cell">
-        <span class="edu-prog">Space Sciences</span>
-      </div>
-      <div class="edu-cell">
-        <span class="edu-prog">Satellite Technologies</span>
-      </div>
-      <div class="edu-cell">
-        <span class="edu-prog">Mechanical Engineering</span>
-      </div>
-      <div class="edu-cell">
-        <span class="edu-prog">Computer Programming</span>
-      </div>
-    </div>
+    <div class="toast" id="toast"></div>
 
-    <div class="spacer"></div>
+    <script>
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2600);
+        }
 
-    <!-- Contact -->
-    <div class="contacts">
-      <a href="mailto:alpersanli16@gmail.com" class="contact-row" id="email-link">
-        <span class="contact-key">Email</span>
-        <span class="contact-val">alpersanli16@gmail.com</span>
-      </a>
-      <a href="tel:+905416361616" class="contact-row" id="phone-link">
-        <span class="contact-key">Phone</span>
-        <span class="contact-val">+90 541 636 16 16</span>
-      </a>
-      <a href="https://alpersanli.github.io" target="_blank" class="contact-row" id="web-link">
-        <span class="contact-key">Web</span>
-        <span class="contact-val">alpersanli.github.io</span>
-      </a>
-      <div class="contact-row" id="radio-row">
-        <span class="contact-key">C/S</span>
-        <span class="contact-val">TA1VAM</span>
-      </div>
-    </div>
+        function saveContact() {
+            const vcard = [
+                'BEGIN:VCARD',
+                'VERSION:3.0',
+                'FN:Alper Şanlı',
+                'N:Şanlı;Alper;;;',
+                'TEL;TYPE=CELL:+905416361616',
+                'EMAIL;TYPE=INTERNET:alpersanli16@gmail.com',
+                'URL:https://alpersanli.github.io',
+                'END:VCARD'
+            ].join('\r\n');
 
-    <!-- Actions -->
-    <div class="actions">
-      <button class="btn btn-primary" id="save-btn" onclick="saveContact()">Save</button>
-      <button class="btn btn-secondary" id="share-btn" onclick="shareCard()">Share</button>
-    </div>
+            const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'AlperSanli.vcf'; a.click();
+            URL.revokeObjectURL(url);
+            showToast('Contact saved');
+        }
 
-  </div>
-
-  <div class="toast" id="toast"></div>
-
-  <script>
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2600);
-    }
-
-    function saveContact() {
-      const vcard = [
-        'BEGIN:VCARD',
-        'VERSION:3.0',
-        'FN:Alper Şanlı',
-        'N:Şanlı;Alper;;;',
-        'TEL;TYPE=CELL:+905416361616',
-        'EMAIL;TYPE=INTERNET:alpersanli16@gmail.com',
-        'URL:https://alpersanli.github.io',
-        'END:VCARD'
-      ].join('\r\n');
-
-      const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'AlperSanli.vcf'; a.click();
-      URL.revokeObjectURL(url);
-      showToast('Contact saved');
-    }
-
-    async function shareCard() {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: 'Alper Şanlı',
-            text: 'Digital Card',
-            url: window.location.href
-          });
-        } catch { }
-      } else {
-        try {
-          await navigator.clipboard.writeText(window.location.href);
-          showToast('Link copied');
-        } catch { showToast('Could not copy'); }
-      }
-    }
-  </script>
+        async function shareCard() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'Alper Şanlı',
+                        text: 'Digital Card',
+                        url: window.location.href
+                    });
+                } catch { }
+            } else {
+                try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    showToast('Link copied');
+                } catch { showToast('Could not copy'); }
+            }
+        }
+    </script>
 </body>
 
 </html>
